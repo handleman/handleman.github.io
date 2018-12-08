@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="iPprDb-KWbQjQinbLCQXoHgtFcMpLVuZKqwkWiuC9hI" />
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter51401461 = new Ya.Metrika2({
+						id:51401461,
+						clickmap:true,
+						trackLinks:true,
+						accurateTrackBounce:true
+					});
+				} catch(e) { }
+			});
+
+			var n = d.getElementsByTagName("script")[0],
+				s = d.createElement("script"),
+				f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+			if (w.opera == "[object Opera]") {
+				d.addEventListener("DOMContentLoaded", f, false);
+			} else { f(); }
+		})(document, window, "yandex_metrika_callbacks2");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/51401461" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <meta charset="utf-8" />
+    <title>Разработка: Таблица размера шрифтов</title>
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Переводы, комиксы, разработка" />
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Разработка: Таблица размера шрифтов | Переводы, комиксы, разработка</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Разработка: Таблица размера шрифтов" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="В своих работах, я стараюсь размер шрифтов прописывать в em. Очевидная выгода этого подхода — возможность быстро и удобно менять размер текста сразу для множества элементов. Изменив значение величины текста в родительском элементе, автоматически поменяются размеры шрифта во всех дочерних контейнерах, причем  все надписи будут смотреться гармонично. У этого подхода есть один недостаток: для каждого дочернего элемента страницы приходится заново рассчитывать размер согласно пропорции: (искомый размер/размер родительского). Причем если размер основного текста отличается от стандартного для современных браузеров (16px), то, для соответствия макету, надо заново все пересчитывать. На практике дизайнеры обычно используют шрифты от 13px до 18px для основного текста. Для того чтобы избавиться от этого рутинного пересчета я подготовил таблицу соответствия размера в px  для размера в em, начиная от 13px для основного текста, и заканчивая 18px. Как это таблицей пользоваться? Ее можно распечатать и держать под рукой во время верстки, либо копировать значения прямо с этой страницы и вам не придется каждый раз пользоваться калькулятором." />
+<meta property="og:description" content="В своих работах, я стараюсь размер шрифтов прописывать в em. Очевидная выгода этого подхода — возможность быстро и удобно менять размер текста сразу для множества элементов. Изменив значение величины текста в родительском элементе, автоматически поменяются размеры шрифта во всех дочерних контейнерах, причем  все надписи будут смотреться гармонично. У этого подхода есть один недостаток: для каждого дочернего элемента страницы приходится заново рассчитывать размер согласно пропорции: (искомый размер/размер родительского). Причем если размер основного текста отличается от стандартного для современных браузеров (16px), то, для соответствия макету, надо заново все пересчитывать. На практике дизайнеры обычно используют шрифты от 13px до 18px для основного текста. Для того чтобы избавиться от этого рутинного пересчета я подготовил таблицу соответствия размера в px  для размера в em, начиная от 13px для основного текста, и заканчивая 18px. Как это таблицей пользоваться? Ее можно распечатать и держать под рукой во время верстки, либо копировать значения прямо с этой страницы и вам не придется каждый раз пользоваться калькулятором." />
+<link rel="canonical" href="http://localhost:4000/webdev/2014/01/07/tablicza-razmera-shriftov-px-em.html" />
+<meta property="og:url" content="http://localhost:4000/webdev/2014/01/07/tablicza-razmera-shriftov-px-em.html" />
+<meta property="og:site_name" content="Переводы, комиксы, разработка" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-01-07T13:35:59+03:00" />
+<script type="application/ld+json">
+{"description":"В своих работах, я стараюсь размер шрифтов прописывать в em. Очевидная выгода этого подхода — возможность быстро и удобно менять размер текста сразу для множества элементов. Изменив значение величины текста в родительском элементе, автоматически поменяются размеры шрифта во всех дочерних контейнерах, причем  все надписи будут смотреться гармонично. У этого подхода есть один недостаток: для каждого дочернего элемента страницы приходится заново рассчитывать размер согласно пропорции: (искомый размер/размер родительского). Причем если размер основного текста отличается от стандартного для современных браузеров (16px), то, для соответствия макету, надо заново все пересчитывать. На практике дизайнеры обычно используют шрифты от 13px до 18px для основного текста. Для того чтобы избавиться от этого рутинного пересчета я подготовил таблицу соответствия размера в px  для размера в em, начиная от 13px для основного текста, и заканчивая 18px. Как это таблицей пользоваться? Ее можно распечатать и держать под рукой во время верстки, либо копировать значения прямо с этой страницы и вам не придется каждый раз пользоваться калькулятором.","@type":"BlogPosting","url":"http://localhost:4000/webdev/2014/01/07/tablicza-razmera-shriftov-px-em.html","headline":"Разработка: Таблица размера шрифтов","dateModified":"2014-01-07T13:35:59+03:00","datePublished":"2014-01-07T13:35:59+03:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/webdev/2014/01/07/tablicza-razmera-shriftov-px-em.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="description" content="Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.">
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="/assets/js/bootstrap.min.js"></script>-->
+    <script src="/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="/assets/js/page.js"></script>
+
+</head>
+
+<body>
+<section  role="main" class="container">
+    <div class="row mobile-header hidden-md hidden-lg">
+        <nav class="navbar navbar-default" role="navigation">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsed-navbar">
+                    <span class="sr-only">Навигация</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Блог.</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="collapsed-navbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span>Главная</a></li>
+                    <li><a href="/about.html"><span class="glyphicon glyphicon-envelope"></span>Контакты</a></li>
+                    <!--<li><a href="http://cv.handleman.ru/" ><span class="glyphicon glyphicon-briefcase"></span>CV и портфолио</a></li>-->
+                    <!--<li><a href="#" ><span class="glyphicon glyphicon-bookmark"></span>RSS блога</a></li>-->
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </div>
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-lg-8 col-md-8 text-body">
+            <header role="banner" class="main-header hidden-sm hidden-xs"></header>
+            <section role="main" class="content">
+                <article>
+    <h1>Разработка: Таблица размера шрифтов</h1>
+    <!--[[*postintroimg:notempty=`<img src="[[*postintroimg:phpthumbof=`h=150`]]" class="description-img img-responsive img-thumbnail" >`]]-->
+    <p>В своих работах, я стараюсь размер шрифтов прописывать в em. Очевидная выгода этого подхода — возможность быстро и удобно менять размер текста сразу для множества элементов. Изменив значение величины текста в родительском элементе, автоматически поменяются размеры шрифта во всех дочерних контейнерах, причем  все надписи будут смотреться гармонично.</p>
+<p><span>У этого подхода есть один недостаток: для каждого дочернего элемента страницы приходится заново рассчитывать размер согласно пропорции: (искомый размер/размер родительского). Причем если размер основного текста отличается от стандартного для современных браузеров (16px), то, для соответствия макету, надо заново все пересчитывать.</span></p>
+<p><span><span>На практике дизайнеры обычно используют шрифты от 13px до 18px для основного текста. Для того чтобы избавиться от этого рутинного пересчета я подготовил таблицу соответствия размера в px  для размера в em, начиная от 13px для основного текста, и заканчивая </span><span>18px</span><span>. Как это таблицей пользоваться? Ее можно распечатать и держать под рукой во время верстки, либо копировать значения прямо с этой страницы и вам не придется каждый раз пользоваться калькулятором.</span></span></p>
+<script type="text/javascript" src="https://gist.github.com/handleman/7703990.js"></script>
+
+
+    <section class="post-info text-muted"><small>Опубликовано <strong>07 Jan 2014</strong> </small></section>
+</article>
+<hr />
+<section class="post-comments" id="comments">
+    <h2>комментарии:</h2>
+    <!-- Nav tabs -->
+    <div >
+        <div class="  simple-comments " id="simple-comments">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+				/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+				var disqus_shortname = 'handleman'; // required: replace example with your forum shortname
+
+				/* * * DON'T EDIT BELOW THIS LINE * * */
+				(function() {
+					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				})();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+
+            </section>
+        </div>
+        <aside class="col-md-4 col-lg-4 hidden-sm hidden-xs left-side">
+    <a href="/" class="logo animated">В индекс</a>
+    <p style="color:#f5f5f5; text-align:center; margin-bottom:1em;">Переводы, комиксы, разработка...</p>
+    <div class="panel panel-primary">
+        <!--<div class="panel-heading">Навигация</div>-->
+<nav role="navigation">
+    <div class="list-group nav">
+        <div>
+            
+            <a href="/about" class="list-group-item ">
+                Контакты
+            </a>
+            
+        </div>
+    </div>
+</nav>
+
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Мой твиттер</div>
+        <a class="twitter-timeline" data-tweet-limit="3" href="https://twitter.com/PHandleman" data-widget-id="536070279681040384">Твиты от @PHandleman</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    </div>
+</aside>
+    </div>
+    <div class="row footer-row">
+        <footer role="contentinfo" class="col-md-9 col-lg-9 ">
+            <nav>
+                <a href="/">На главную</a>
+                <a href="/about.html">Контакты</a>
+            </nav>
+            <a href="#" title="В начало страницы" class="to-top-btn"><span class="glyphicon glyphicon-circle-arrow-up">&nbsp;</span></a>
+        </footer>
+
+    </div>
+</section>
+</body>
+</html>

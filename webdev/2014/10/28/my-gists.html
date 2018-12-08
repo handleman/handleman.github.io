@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="iPprDb-KWbQjQinbLCQXoHgtFcMpLVuZKqwkWiuC9hI" />
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter51401461 = new Ya.Metrika2({
+						id:51401461,
+						clickmap:true,
+						trackLinks:true,
+						accurateTrackBounce:true
+					});
+				} catch(e) { }
+			});
+
+			var n = d.getElementsByTagName("script")[0],
+				s = d.createElement("script"),
+				f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+			if (w.opera == "[object Opera]") {
+				d.addEventListener("DOMContentLoaded", f, false);
+			} else { f(); }
+		})(document, window, "yandex_metrika_callbacks2");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/51401461" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <meta charset="utf-8" />
+    <title>Разработка: Подборка полезных функций javascript</title>
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Переводы, комиксы, разработка" />
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Разработка: Подборка полезных функций javascript | Переводы, комиксы, разработка</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Разработка: Подборка полезных функций javascript" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="За последний год у меня накопилось достаточно много интересных решений различных микрозадач веб-разработки. Все интересные решения и приемы, которые я нахожу в сети или «изобретаю» сам, я храню на gist.github.com. Я решил что будет полезно сделать краткий обзор собственных «гистов» как, собственно, для консолидации своих знаний ,так и для того, чтобы вам не пришлось изобретать велосипеды. Итак по порядку… 1. Javascript: Реакция на изменение ширины браузера Кроссбраузерный способ обработки события изменения окна браузера. Использую для перетасовки блоков верстки, как элемент адаптивного дизайна. 2. Javascript: iOS, or not iOS: that is the question… (Определить iOS) Простой и быстрый способ узнать зашел ли к вам на сайт человек с iPad или iPhone. 3. Javascript: Определить платформу мобильного устройства пользователя. Простой и легкий способ определить с какого смартфона к вам на сайт зашел пользователь, узнать тип операционной системы посетителя сайта. 4. Javascript, HTML: специальные символы валют. HTML спецсимволы валют различных стран мира. 5. Javascript, JQuery: Скролл окна к элементу на странице Кроссбраузерный способ реализации кнопки “На верх”, для вашего сайта. 6. Git: .gitignore файл для проектов на MODx Revo 7. Javascript, JQuery: как получить значение inline свойства style элемента. Способ узнать css свойство динамически генерированного объекта, все свойства которого зашиты в атрибут style, прямо в самом теге. 8. Javascript: Структура ( скелет) модуля на javascript Способ реализации модульной архитектуры вашего веб приложения. 9. Javascript, JQuery: как перезагрузить iframe на странице Несколько способов программно перезагрузить содержимое iframe контейнера на странице. 10. CSS: Пример адекватной тени под блоком и текстом Тень в меру размашистая, идеально полупрозрачная. 11. JavaScript: Конвертация данных формы в javascrpt объект Сначала форма проходит сериализацию, затем сформированная строка запроса конвертируется в js объект 12. JavaScript: Спрятать элемент, если пользователь кликнул мышью ввне его области Например нам нужно прятать модальное окно, после того как пользователь щелкнул вне этого окна. ПРи этом, если клик по области внутри окна, то все оставить как есть 13. Jquery. 2-й способ реализации принципа - скрыть элемент по клику на внешней области Этот способ значительно короче, но менее гибкий нежели предыдущий 14. CSS: плавная анимация элемента при наведении средствами css 15. Задать классы элементам управления google maps Элементы управления на карте по умолчанию не поддаются стилизации, потому как не содержат уникальных классов либо идентификаторов. Данный хак распознает эти элементы и &quot;именует&quot; их, для того, чтобы разработчик смог в дальнейшем управлять их отображением через css файлы 16. CSS:Получить значение CSS свойства без величины &#39;px&#39; 17. JavaScript: Что делать если input вызывает действие click 2 раза 18. JavaScript: Получить длину объекта, аналог Array.length 19. JavaScript: Переименовать свойство объекта 20. LESS: Быстрый способ задания фона html елемента" />
+<meta property="og:description" content="За последний год у меня накопилось достаточно много интересных решений различных микрозадач веб-разработки. Все интересные решения и приемы, которые я нахожу в сети или «изобретаю» сам, я храню на gist.github.com. Я решил что будет полезно сделать краткий обзор собственных «гистов» как, собственно, для консолидации своих знаний ,так и для того, чтобы вам не пришлось изобретать велосипеды. Итак по порядку… 1. Javascript: Реакция на изменение ширины браузера Кроссбраузерный способ обработки события изменения окна браузера. Использую для перетасовки блоков верстки, как элемент адаптивного дизайна. 2. Javascript: iOS, or not iOS: that is the question… (Определить iOS) Простой и быстрый способ узнать зашел ли к вам на сайт человек с iPad или iPhone. 3. Javascript: Определить платформу мобильного устройства пользователя. Простой и легкий способ определить с какого смартфона к вам на сайт зашел пользователь, узнать тип операционной системы посетителя сайта. 4. Javascript, HTML: специальные символы валют. HTML спецсимволы валют различных стран мира. 5. Javascript, JQuery: Скролл окна к элементу на странице Кроссбраузерный способ реализации кнопки “На верх”, для вашего сайта. 6. Git: .gitignore файл для проектов на MODx Revo 7. Javascript, JQuery: как получить значение inline свойства style элемента. Способ узнать css свойство динамически генерированного объекта, все свойства которого зашиты в атрибут style, прямо в самом теге. 8. Javascript: Структура ( скелет) модуля на javascript Способ реализации модульной архитектуры вашего веб приложения. 9. Javascript, JQuery: как перезагрузить iframe на странице Несколько способов программно перезагрузить содержимое iframe контейнера на странице. 10. CSS: Пример адекватной тени под блоком и текстом Тень в меру размашистая, идеально полупрозрачная. 11. JavaScript: Конвертация данных формы в javascrpt объект Сначала форма проходит сериализацию, затем сформированная строка запроса конвертируется в js объект 12. JavaScript: Спрятать элемент, если пользователь кликнул мышью ввне его области Например нам нужно прятать модальное окно, после того как пользователь щелкнул вне этого окна. ПРи этом, если клик по области внутри окна, то все оставить как есть 13. Jquery. 2-й способ реализации принципа - скрыть элемент по клику на внешней области Этот способ значительно короче, но менее гибкий нежели предыдущий 14. CSS: плавная анимация элемента при наведении средствами css 15. Задать классы элементам управления google maps Элементы управления на карте по умолчанию не поддаются стилизации, потому как не содержат уникальных классов либо идентификаторов. Данный хак распознает эти элементы и &quot;именует&quot; их, для того, чтобы разработчик смог в дальнейшем управлять их отображением через css файлы 16. CSS:Получить значение CSS свойства без величины &#39;px&#39; 17. JavaScript: Что делать если input вызывает действие click 2 раза 18. JavaScript: Получить длину объекта, аналог Array.length 19. JavaScript: Переименовать свойство объекта 20. LESS: Быстрый способ задания фона html елемента" />
+<link rel="canonical" href="http://localhost:4000/webdev/2014/10/28/my-gists.html" />
+<meta property="og:url" content="http://localhost:4000/webdev/2014/10/28/my-gists.html" />
+<meta property="og:site_name" content="Переводы, комиксы, разработка" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-10-28T13:35:59+03:00" />
+<script type="application/ld+json">
+{"description":"За последний год у меня накопилось достаточно много интересных решений различных микрозадач веб-разработки. Все интересные решения и приемы, которые я нахожу в сети или «изобретаю» сам, я храню на gist.github.com. Я решил что будет полезно сделать краткий обзор собственных «гистов» как, собственно, для консолидации своих знаний ,так и для того, чтобы вам не пришлось изобретать велосипеды. Итак по порядку… 1. Javascript: Реакция на изменение ширины браузера Кроссбраузерный способ обработки события изменения окна браузера. Использую для перетасовки блоков верстки, как элемент адаптивного дизайна. 2. Javascript: iOS, or not iOS: that is the question… (Определить iOS) Простой и быстрый способ узнать зашел ли к вам на сайт человек с iPad или iPhone. 3. Javascript: Определить платформу мобильного устройства пользователя. Простой и легкий способ определить с какого смартфона к вам на сайт зашел пользователь, узнать тип операционной системы посетителя сайта. 4. Javascript, HTML: специальные символы валют. HTML спецсимволы валют различных стран мира. 5. Javascript, JQuery: Скролл окна к элементу на странице Кроссбраузерный способ реализации кнопки “На верх”, для вашего сайта. 6. Git: .gitignore файл для проектов на MODx Revo 7. Javascript, JQuery: как получить значение inline свойства style элемента. Способ узнать css свойство динамически генерированного объекта, все свойства которого зашиты в атрибут style, прямо в самом теге. 8. Javascript: Структура ( скелет) модуля на javascript Способ реализации модульной архитектуры вашего веб приложения. 9. Javascript, JQuery: как перезагрузить iframe на странице Несколько способов программно перезагрузить содержимое iframe контейнера на странице. 10. CSS: Пример адекватной тени под блоком и текстом Тень в меру размашистая, идеально полупрозрачная. 11. JavaScript: Конвертация данных формы в javascrpt объект Сначала форма проходит сериализацию, затем сформированная строка запроса конвертируется в js объект 12. JavaScript: Спрятать элемент, если пользователь кликнул мышью ввне его области Например нам нужно прятать модальное окно, после того как пользователь щелкнул вне этого окна. ПРи этом, если клик по области внутри окна, то все оставить как есть 13. Jquery. 2-й способ реализации принципа - скрыть элемент по клику на внешней области Этот способ значительно короче, но менее гибкий нежели предыдущий 14. CSS: плавная анимация элемента при наведении средствами css 15. Задать классы элементам управления google maps Элементы управления на карте по умолчанию не поддаются стилизации, потому как не содержат уникальных классов либо идентификаторов. Данный хак распознает эти элементы и &quot;именует&quot; их, для того, чтобы разработчик смог в дальнейшем управлять их отображением через css файлы 16. CSS:Получить значение CSS свойства без величины &#39;px&#39; 17. JavaScript: Что делать если input вызывает действие click 2 раза 18. JavaScript: Получить длину объекта, аналог Array.length 19. JavaScript: Переименовать свойство объекта 20. LESS: Быстрый способ задания фона html елемента","@type":"BlogPosting","url":"http://localhost:4000/webdev/2014/10/28/my-gists.html","headline":"Разработка: Подборка полезных функций javascript","dateModified":"2014-10-28T13:35:59+03:00","datePublished":"2014-10-28T13:35:59+03:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/webdev/2014/10/28/my-gists.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="description" content="Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.">
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="/assets/js/bootstrap.min.js"></script>-->
+    <script src="/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="/assets/js/page.js"></script>
+
+</head>
+
+<body>
+<section  role="main" class="container">
+    <div class="row mobile-header hidden-md hidden-lg">
+        <nav class="navbar navbar-default" role="navigation">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsed-navbar">
+                    <span class="sr-only">Навигация</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Блог.</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="collapsed-navbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span>Главная</a></li>
+                    <li><a href="/about.html"><span class="glyphicon glyphicon-envelope"></span>Контакты</a></li>
+                    <!--<li><a href="http://cv.handleman.ru/" ><span class="glyphicon glyphicon-briefcase"></span>CV и портфолио</a></li>-->
+                    <!--<li><a href="#" ><span class="glyphicon glyphicon-bookmark"></span>RSS блога</a></li>-->
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </div>
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-lg-8 col-md-8 text-body">
+            <header role="banner" class="main-header hidden-sm hidden-xs"></header>
+            <section role="main" class="content">
+                <article>
+    <h1>Разработка: Подборка полезных функций javascript</h1>
+    <!--[[*postintroimg:notempty=`<img src="[[*postintroimg:phpthumbof=`h=150`]]" class="description-img img-responsive img-thumbnail" >`]]-->
+    <p>За последний год у меня накопилось достаточно много интересных решений различных микрозадач веб-разработки. Все интересные решения и приемы, которые я нахожу в сети или «изобретаю» сам, я храню на gist.github.com. Я решил что будет полезно сделать краткий обзор собственных «гистов» как, собственно, для консолидации своих знаний ,так и для того, чтобы вам не пришлось изобретать велосипеды. Итак по порядку…</p>
+<h2>1. Javascript: Реакция на изменение ширины браузера</h2>
+<p>Кроссбраузерный способ обработки события изменения окна браузера. Использую для перетасовки блоков верстки, как элемент адаптивного дизайна.</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/8135376.js"></script>
+
+<h2>2. Javascript: iOS, or not iOS: that is the question… (Определить iOS)</h2>
+<p>Простой и быстрый способ узнать зашел ли к вам на сайт человек с iPad или iPhone.</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/8254820.js"></script>
+
+<h2>3. Javascript: Определить платформу мобильного устройства пользователя.</h2>
+<p>Простой и легкий способ определить с какого смартфона к вам на сайт зашел пользователь, узнать тип операционной системы <span style="line-height: 1.5em;">посетителя сайта.</span></p>
+<script type="text/javascript" src="https://gist.github.com/handleman/8956416.js"></script>
+
+<h2>4. Javascript, HTML: специальные символы валют.</h2>
+<p>HTML спецсимволы валют различных стран мира.</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/9346600.js"></script>
+
+<h2>5. Javascript, JQuery: Скролл окна к элементу на странице</h2>
+<p>Кроссбраузерный способ реализации кнопки “На верх”, для вашего сайта.</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/9464486.js"></script>
+
+<h2>6. Git: .gitignore файл для проектов на MODx Revo</h2>
+<script type="text/javascript" src="https://gist.github.com/handleman/9856498.js"></script>
+
+<h2>7. Javascript, JQuery: как получить значение inline свойства style элемента.</h2>
+<p>Способ узнать css свойство динамически генерированного объекта, все свойства которого зашиты в атрибут style, прямо в самом теге.</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/349f363bfc90963eb317.js"></script>
+
+<h2>8. Javascript: Структура ( скелет) модуля на javascript</h2>
+<p>Способ реализации модульной архитектуры вашего веб приложения.</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/11c69551298290365a8c.js"></script>
+
+<h2>9. Javascript, JQuery: как перезагрузить iframe на странице</h2>
+<p>Несколько способов программно перезагрузить содержимое iframe контейнера на странице.</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/6289dfc666cc13ee3800.js"></script>
+
+<h2>10. CSS: Пример адекватной тени под блоком и текстом</h2>
+<p>Тень в меру размашистая, идеально полупрозрачная.</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/231c48b2e702a3e20743.js"></script>
+
+<h2>11. JavaScript: Конвертация данных формы в javascrpt объект</h2>
+<p>Сначала форма проходит сериализацию, затем сформированная строка запроса конвертируется в js объект</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/018cb4f312780c7b1e0d.js"></script>
+
+<h2>12. JavaScript: Спрятать элемент, если пользователь кликнул мышью ввне его области</h2>
+<p>Например нам нужно прятать модальное окно, после того как пользователь щелкнул вне этого окна. ПРи этом, если клик по области внутри окна, то все оставить как есть</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/7230f0fbf96b5fdeea18.js"></script>
+
+<h2>13. Jquery. 2-й способ реализации принципа - скрыть элемент по клику на внешней области</h2>
+<p>Этот способ значительно короче, но менее гибкий нежели предыдущий</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/3e81400f21bc24ccd370.js"></script>
+
+<h2>14. CSS: плавная анимация элемента при наведении средствами css</h2>
+<script type="text/javascript" src="https://gist.github.com/handleman/1953221118688ceb840f.js"></script>
+
+<h2>15. Задать классы элементам управления google maps</h2>
+<p>Элементы управления на карте по умолчанию не поддаются стилизации, потому как не содержат уникальных классов либо идентификаторов. Данный хак распознает эти элементы и "именует" их, для того, чтобы разработчик смог в дальнейшем управлять их отображением через css файлы</p>
+<script type="text/javascript" src="https://gist.github.com/handleman/491a92fbd9999539e3ac.js"></script>
+
+<h2>16. CSS:Получить значение CSS свойства без величины 'px'</h2>
+<script type="text/javascript" src="https://gist.github.com/handleman/62ab3264c6b2e3253e77.js"></script>
+
+<h2>17. JavaScript: Что делать если input вызывает действие click 2 раза</h2>
+<script type="text/javascript" src="https://gist.github.com/handleman/9e94486833a922bc6710.js"></script>
+
+<h2>18. JavaScript: Получить длину объекта, аналог Array.length</h2>
+<script type="text/javascript" src="https://gist.github.com/handleman/f8666fc1580cbb91c00f.js"></script>
+
+<h2>19. JavaScript: Переименовать свойство объекта</h2>
+<script type="text/javascript" src="https://gist.github.com/handleman/a2e16a704061d44201ac.js"></script>
+
+<h2>20. LESS: Быстрый способ задания фона html елемента</h2>
+<script type="text/javascript" src="https://gist.github.com/handleman/1688df8383e3925f7400.js"></script>
+
+
+    <section class="post-info text-muted"><small>Опубликовано <strong>28 Oct 2014</strong> </small></section>
+</article>
+<hr />
+<section class="post-comments" id="comments">
+    <h2>комментарии:</h2>
+    <!-- Nav tabs -->
+    <div >
+        <div class="  simple-comments " id="simple-comments">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+				/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+				var disqus_shortname = 'handleman'; // required: replace example with your forum shortname
+
+				/* * * DON'T EDIT BELOW THIS LINE * * */
+				(function() {
+					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				})();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+
+            </section>
+        </div>
+        <aside class="col-md-4 col-lg-4 hidden-sm hidden-xs left-side">
+    <a href="/" class="logo animated">В индекс</a>
+    <p style="color:#f5f5f5; text-align:center; margin-bottom:1em;">Переводы, комиксы, разработка...</p>
+    <div class="panel panel-primary">
+        <!--<div class="panel-heading">Навигация</div>-->
+<nav role="navigation">
+    <div class="list-group nav">
+        <div>
+            
+            <a href="/about" class="list-group-item ">
+                Контакты
+            </a>
+            
+        </div>
+    </div>
+</nav>
+
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Мой твиттер</div>
+        <a class="twitter-timeline" data-tweet-limit="3" href="https://twitter.com/PHandleman" data-widget-id="536070279681040384">Твиты от @PHandleman</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    </div>
+</aside>
+    </div>
+    <div class="row footer-row">
+        <footer role="contentinfo" class="col-md-9 col-lg-9 ">
+            <nav>
+                <a href="/">На главную</a>
+                <a href="/about.html">Контакты</a>
+            </nav>
+            <a href="#" title="В начало страницы" class="to-top-btn"><span class="glyphicon glyphicon-circle-arrow-up">&nbsp;</span></a>
+        </footer>
+
+    </div>
+</section>
+</body>
+</html>

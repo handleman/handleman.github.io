@@ -1,37 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2018-12-09T11:23:26+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Разработка: Набор полезных сниппетов №2</title><link href="https://handleman.github.io/webdev/2018/12/09/snippets-2.html" rel="alternate" type="text/html" title="Разработка: Набор полезных сниппетов №2" /><published>2018-12-09T10:35:00+03:00</published><updated>2018-12-09T10:35:00+03:00</updated><id>https://handleman.github.io/webdev/2018/12/09/snippets-2</id><content type="html" xml:base="https://handleman.github.io/webdev/2018/12/09/snippets-2.html">&lt;p&gt;Делюсь набором полезных сниппетов кода, накопившихся у меня в процессе работы с прошлой статьи.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2018-12-17T10:39:23+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Разработка: Набор полезных сниппетов №2</title><link href="https://handleman.github.io/webdev/2018/12/09/snippets-2.html" rel="alternate" type="text/html" title="Разработка: Набор полезных сниппетов №2" /><published>2018-12-09T10:35:00+03:00</published><updated>2018-12-09T10:35:00+03:00</updated><id>https://handleman.github.io/webdev/2018/12/09/snippets-2</id><content type="html" xml:base="https://handleman.github.io/webdev/2018/12/09/snippets-2.html">&lt;p&gt;Делюсь набором полезных сниппетов кода, накопившихся у меня в процессе работы с прошлой статьи.
 На этот раз тут есть все - от bash команд до css: общая черта только то что они так или иначе связаны с веб- разработкой, и у свое время сильно мне помогли.&lt;/p&gt;
 
-&lt;h4 id=&quot;bashunix-Как-убить-процесс-занимающий-определенный-порт&quot;&gt;Bash/unix: Как убить процесс занимающий определенный порт.&lt;/h4&gt;
+&lt;h4 id=&quot;bashunix-как-убить-процесс-занимающий-определенный-порт&quot;&gt;Bash/unix: Как убить процесс занимающий определенный порт.&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/e070241c817ac9e244d3a673cae98c31.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;javascript-Как-запустить-несколько-npm-команд-из-packagejson&quot;&gt;Javascript: Как запустить несколько NPM команд из package.json.&lt;/h4&gt;
+&lt;h4 id=&quot;javascript-как-запустить-несколько-npm-команд-из-packagejson&quot;&gt;Javascript: Как запустить несколько NPM команд из package.json.&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/9cb2f527c4efa82722cc77ecbe7bfa04.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;bashunix-Вариант-удобного-цветной-bash-формата-для-команды-git-log&quot;&gt;Bash/Unix: Вариант удобного (цветной bash) формата для команды git log.&lt;/h4&gt;
+&lt;h4 id=&quot;bashunix-вариант-удобного-цветной-bash-формата-для-команды-git-log&quot;&gt;Bash/Unix: Вариант удобного (цветной bash) формата для команды git log.&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/ac2c3e7084e09c8da82c8e0824251a6c.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;javascript-Как-определить-пустой-объект-&quot;&gt;Javascript: Как определить пустой объект. ({})&lt;/h4&gt;
+&lt;h4 id=&quot;javascript-как-определить-пустой-объект-&quot;&gt;Javascript: Как определить пустой объект. ({})&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/4bf5d36a648d4db41b391f2bc424f52b.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;javascript-Как-узнать-высоту-динамического-dom-элемента&quot;&gt;Javascript: Как узнать высоту динамического DOM элемента.&lt;/h4&gt;
+&lt;h4 id=&quot;javascript-как-узнать-высоту-динамического-dom-элемента&quot;&gt;Javascript: Как узнать высоту динамического DOM элемента.&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/97d9866134fa8aae6e7f11dbbb5f13d8.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;javascript-Как-получить-значение-свойств-вложенного-объекта-любого-уровня-вложенности&quot;&gt;Javascript: Как получить значение свойств вложенного объекта, любого уровня вложенности.&lt;/h4&gt;
+&lt;h4 id=&quot;javascript-как-получить-значение-свойств-вложенного-объекта-любого-уровня-вложенности&quot;&gt;Javascript: Как получить значение свойств вложенного объекта, любого уровня вложенности.&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/8deb5ceaa362e7866bbec4240f34fe50.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;css-Стилизация-формы-в-как-material-design&quot;&gt;Css: Стилизация формы в (как) material design.&lt;/h4&gt;
+&lt;h4 id=&quot;css-стилизация-формы-в-как-material-design&quot;&gt;Css: Стилизация формы в (как) material design.&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/148c6f57d008fb427084cefe85d72cc3.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;javascript-Как-получить-завтрашнюю-дату-в-javascript&quot;&gt;Javascript: Как получить завтрашнюю дату в javascript.&lt;/h4&gt;
+&lt;h4 id=&quot;javascript-как-получить-завтрашнюю-дату-в-javascript&quot;&gt;Javascript: Как получить завтрашнюю дату в javascript.&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/27d0c9242ea6468706dabcbd243b2a76.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;javascript-Как-определить-ie-11-на-фронте-в-браузере&quot;&gt;Javascript: Как определить ie 11 на фронте (в браузере).&lt;/h4&gt;
+&lt;h4 id=&quot;javascript-как-определить-ie-11-на-фронте-в-браузере&quot;&gt;Javascript: Как определить ie 11 на фронте (в браузере).&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/64dbe44219f1b9837fe8a9103aec0fd9.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;javascript-Как-заставить-браузер--выполнить-Сохранить-как-файл-вместо-того-чтобы-открыть-его&quot;&gt;Javascript: Как заставить браузер  выполнить «Сохранить как файл» вместо того чтобы открыть его&lt;/h4&gt;
+&lt;h4 id=&quot;javascript-как-заставить-браузер--выполнить-сохранить-как-файл-вместо-того-чтобы-открыть-его&quot;&gt;Javascript: Как заставить браузер  выполнить «Сохранить как файл» вместо того чтобы открыть его&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/6ac609c084c735e6738f5d155e29a874.js&quot;&gt;&lt;/script&gt;
 
-&lt;h4 id=&quot;javascript-Скруглить-углы-у-бар-чарта-в-c3js&quot;&gt;Javascript: Скруглить углы у бар-чарта в c3.js&lt;/h4&gt;
+&lt;h4 id=&quot;javascript-скруглить-углы-у-бар-чарта-в-c3js&quot;&gt;Javascript: Скруглить углы у бар-чарта в c3.js&lt;/h4&gt;
 &lt;script src=&quot;https://gist.github.com/handleman/6ea17874d5ac98e46477a34cad57986d.js&quot;&gt;&lt;/script&gt;</content><author><name></name></author><summary type="html">Делюсь набором полезных сниппетов кода, накопившихся у меня в процессе работы с прошлой статьи. На этот раз тут есть все - от bash команд до css: общая черта только то что они так или иначе связаны с веб- разработкой, и у свое время сильно мне помогли.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://handleman.github.io/assets/images/articles/gist/code-snippets.png" /></entry><entry><title type="html">Перевод: сообщение об ошибках это антипаттерн</title><link href="https://handleman.github.io/translation/2016/02/24/perevod-soobshhenie-ob-oshibkax-eto-antipattern.html" rel="alternate" type="text/html" title="Перевод: сообщение об ошибках это антипаттерн" /><published>2016-02-24T13:35:59+03:00</published><updated>2016-02-24T13:35:59+03:00</updated><id>https://handleman.github.io/translation/2016/02/24/perevod-soobshhenie-ob-oshibkax-eto-antipattern</id><content type="html" xml:base="https://handleman.github.io/translation/2016/02/24/perevod-soobshhenie-ob-oshibkax-eto-antipattern.html">&lt;p&gt;Когда вы проектируете интерактивную систему вы неизбежно сталкиваетесь с ограничениями. Например, не всегда достаточно того, чтобы просто добавить новое поле в уже существующую и работающую базу данных; мобильные сети не всегда обладают хорошими скоростями из-за низкой производительности либо высокой загруженности. Обычно команда проектировщиков принимает к сведению подобные ограничения и обсуждает с командой разработки компромиссный вариант того что команда может сделать в текущих условиях.&lt;/p&gt;
 
 &lt;h3&gt;Не надо рассматривать пользователя как источник ошибок&lt;/h3&gt;

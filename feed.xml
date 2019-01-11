@@ -1,4 +1,186 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2018-12-17T10:39:23+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Разработка: Набор полезных сниппетов №2</title><link href="https://handleman.github.io/webdev/2018/12/09/snippets-2.html" rel="alternate" type="text/html" title="Разработка: Набор полезных сниппетов №2" /><published>2018-12-09T10:35:00+03:00</published><updated>2018-12-09T10:35:00+03:00</updated><id>https://handleman.github.io/webdev/2018/12/09/snippets-2</id><content type="html" xml:base="https://handleman.github.io/webdev/2018/12/09/snippets-2.html">&lt;p&gt;Делюсь набором полезных сниппетов кода, накопившихся у меня в процессе работы с прошлой статьи.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2019-01-11T13:48:10+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Перевод: Что такое DOM дерево</title><link href="https://handleman.github.io/translation/2019/01/11/dom.html" rel="alternate" type="text/html" title="Перевод: Что такое DOM дерево" /><published>2019-01-11T13:35:00+03:00</published><updated>2019-01-11T13:35:00+03:00</updated><id>https://handleman.github.io/translation/2019/01/11/dom</id><content type="html" xml:base="https://handleman.github.io/translation/2019/01/11/dom.html">&lt;p&gt;«Объектная модель документа» по другому «DOM-дерево» это не что иное, как интерфейс доступа к веб-странице. И основная задача этого интерфейса - обеспечить возможность для редактирования контента и манипуляции со структурой и стилями документа.
+Давайте разберем понятие по порядку.&lt;/p&gt;
+
+&lt;h2 id=&quot;как-строится-веб-страница-в-браузере&quot;&gt;Как строится веб-страница в браузере&lt;/h2&gt;
+
+&lt;p&gt;Процесс при котором браузер получив исходный код выводит интерактивную и стилизованную страницу в окно браузера называется «Критический путь рендера» (“Critical Rendering Path”). Хотя этот процесс, сам по себе, состоит из множества шагов, мы можем условно выделить два этапа. Первый этап заключается в том что браузер парсит исходный код, чтобы выяснить что конкретно должно быть прорисовано на странице, а второй этап это уже сам рендер.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://bitsofco.de/content/images/2018/11/HTML-to-Render-Tree-to-Final.png&quot; alt=&quot;HTML-to-Render-Tree-to-Final&quot; title=&quot;Critical Rendering Path&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат выполнения первого этапа это так называемое «рендер-дерево».  Рендер-дерево это представление HTML элементов, которое должны быть отрисованы вместе со связанными с ними стилями. Для того чтобы построить такое дерево браузеру нужно две вещи:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;CSSOM - Представление стилей связанных с элементами на странице.&lt;/li&gt;
+  &lt;li&gt;DOM - Объектное представление HTML элементов на странице.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;как-создается-dom-и-как-он-выглядит&quot;&gt;Как создается DOM (и как он выглядит)&lt;/h2&gt;
+
+&lt;p&gt;DOM, как уже было сказано, это объектное представление кода HTML документа, т.е другими словами объект свойства которого это имена тегов HTML с учетом вложенности и дополнительной информации - такой как: атрибуты тегов, текстовое содержимое и т.д. Однако, есть некоторые отличия, которые мы рассмотрим ниже, но, в целом, все они связаны с попыткой конвертированного в объект HTML соответствовать нуждам программ которые его используют.&lt;/p&gt;
+
+&lt;p&gt;Структурно DOM принимает вид упорядоченного дерева, потому как оно представлено в виде единственного родительского элемента от которого ответвляются все остальные “ветви”, каждая их которых имеет свои дочерние элементы “листья дерева”. В нашем случае главный родительский элемент это тег &lt;strong&gt;&amp;lt;html&amp;gt;&lt;/strong&gt;, дочерние ответвления это другие вложенные теги и элементы HTML документа, а завершают цепочку листья - контент внутри тегов.&lt;/p&gt;
+
+&lt;p&gt;Давайте рассмотрим следующий пример:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;en&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;My first web page&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Hello, world!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;How are you?&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;этот HTML документ может быть представлен в виде следующего дерева:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;html
+    &lt;ul&gt;
+      &lt;li&gt;head
+        &lt;ul&gt;
+          &lt;li&gt;title
+            &lt;ul&gt;
+              &lt;li&gt;My first web page&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;body
+    &lt;ul&gt;
+      &lt;li&gt;h1
+        &lt;ul&gt;
+          &lt;li&gt;Hello, world!&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;p
+        &lt;ul&gt;
+          &lt;li&gt;How are you?&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;чем-dom-не-является&quot;&gt;Чем DOM НЕ является&lt;/h2&gt;
+
+&lt;p&gt;Из примера выше, может показаться что DOM это точное (1 к 1) отображение исходного кода, который вы можете наблюдать в вашем devTools. Однако, как я отмечал ранее, тут есть отличия. Чтобы полностью понять что такое DOM-дерево. Мы должны рассмотреть чем оно НЕ является.&lt;/p&gt;
+
+&lt;h3 id=&quot;dom-это-не-ваш-исходный-код&quot;&gt;DOM это не ваш исходный код&lt;/h3&gt;
+
+&lt;p&gt;Несмотря на то, что DOM строится по исходному коду HTML документа, не всегда это одно и то же.  Есть два случая, в которых DOM может отличаться от исходного HTML:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Когда HTML не валидный.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;DOM это интерфейс к валидному HTML документу. Во время его создания, браузер может откорректировать некоторые невалидные элементы.&lt;/p&gt;
+
+&lt;p&gt;Для примера рассмотрим следующий документ:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
+        Hello, world!
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;В документе отсутствуют &amp;lt;head&amp;gt; и &amp;lt;body&amp;gt;, которые нужны для того чтобы документ был валидным. Но, если мы взглянем на DOM дерево, полученное в результате, мы увидим что это было исправлено:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;html
+    &lt;ul&gt;
+      &lt;li&gt;head&lt;/li&gt;
+      &lt;li&gt;body
+        &lt;ul&gt;
+          &lt;li&gt;Hello, world!&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Когда DOM изменяется через javascript.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Вместе с тем, что это интерфейс для отображения HTML документа, DOM также может быть модифицирован, тем самым превратившись в динамический ресурс.&lt;/p&gt;
+
+&lt;p&gt;К примеру, мы можем добавлять новые вершины в DOM дерево&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;newParagraph&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;p&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;paragraphContent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createTextNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;I'm new!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;newParagraph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;paragraphContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;newParagraph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Эта инструкция обновит наше DOM-дерево, но, исходный HTML код конечно же не изменится.&lt;/p&gt;
+
+&lt;h3 id=&quot;dom-это-не-то-что-вы-видите-в-браузере-те-это-не-render-tree&quot;&gt;DOM это не то что вы видите в браузере (т.е это не render-tree)&lt;/h3&gt;
+
+&lt;p&gt;То что вы видите в окне браузера, это рендер-дерево (render-tree), которое, как упоминалось ранее это комбинация DOM и CSSOM. Главное отличие DOM от Render-tree в том, что последнее содержит в себе именно то, и только то, что будет отрисовано на экране.&lt;/p&gt;
+
+&lt;p&gt;Из-за того, что Render-tree заинтересовано только в том что должно быть отрисовано, оно не содержит элементов, которые визуально скрыты от пользователей.&lt;/p&gt;
+
+&lt;p&gt;Например это могут быть все элементы, для которых выставлен ‘display:none’ в CSS стилях.&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;en&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Hello, world!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;display: none;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;How are you?&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;В примере выше, DOM будет содержать элемент &amp;lt;p&amp;gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;html
+    &lt;ul&gt;
+      &lt;li&gt;head&lt;/li&gt;
+      &lt;li&gt;body
+        &lt;ul&gt;
+          &lt;li&gt;h1&lt;/li&gt;
+          &lt;li&gt;p&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;При этом Render-tree, а значит и то что будет отображено в окне браузера - этого элемента не содержит и будет выглядеть так:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;html
+    &lt;ul&gt;
+      &lt;li&gt;body
+        &lt;ul&gt;
+          &lt;li&gt;h1&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;DOM это не то же самое что находится в DevTools.&lt;/p&gt;
+
+&lt;p&gt;Разница тут не очевидна, т.к инспектор элементов в DevTools показывает максимально приближенную к DOM версию дерева. Однако, инспектор в DevTools включает в себя дополнительную информацию которой нет в DOM.&lt;/p&gt;
+
+&lt;p&gt;Лучший пример такой информации это псевдо-элементы. Псевдо-элементы создаются с помощью селекторов &lt;code class=&quot;highlighter-rouge&quot;&gt;::after&lt;/code&gt; и &lt;code class=&quot;highlighter-rouge&quot;&gt;::before&lt;/code&gt; берутся из CSSOM как части готового Render-tree, но, при этом, технически не являются частью DOM. Это потому, что DOM построен по HTML документу, не включая стили применяемые к элементу.&lt;/p&gt;
+
+&lt;p&gt;Несмотря на то, что псевдо-элементы не являются частью DOM-дерева, они все равно присутствуют в нашем инспекторе элементов devTools.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://bitsofco.de/content/images/2018/11/Pseudo-element-in-devtools-inspector.png&quot; alt=&quot;Pseudo-element-in-devtools-inspector&quot; title=&quot;Псевдо-элементы в инспекторе кода  Chrome DevTools&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Именно поэтому псевдо-элементы “не видны” из javascript, потому что они не являются частью DOM-дерева.&lt;/p&gt;
+
+&lt;h2 id=&quot;вывод&quot;&gt;Вывод&lt;/h2&gt;
+
+&lt;p&gt;DOM-дерево это интерфейс к HTML-документу. Оно используется браузерами на первом шаге процесса рендера страницы, для определения того что необходимо отрисовать, и, программами на javascript - для модификации содержимого, структуры или же для стилизации контента страницы.&lt;/p&gt;
+
+&lt;p&gt;Несмотря на сходства с остальными формами исходного HTML-кода, DOM имеет ряд отличий:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Это всегда только валидный HTML&lt;/li&gt;
+  &lt;li&gt;Это живая модель которая может быть изменена с помощью javascript&lt;/li&gt;
+  &lt;li&gt;Не содержит псевдоэлементов (::before, ::after и т.д.)&lt;/li&gt;
+  &lt;li&gt;Не содержит скрытых элементов (display:none; и т.д.)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Данный текст это мой вольный перевод оригинальной статьи &lt;a href=&quot;https://ireaderinokun.com&quot;&gt;Ire Aderinokun&lt;/a&gt; - &lt;a href=&quot;https://bitsofco.de/what-exactly-is-the-dom/&quot;&gt;What, exactly, is the DOM?&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">«Объектная модель документа» по другому «DOM-дерево» это не что иное, как интерфейс доступа к веб-странице. И основная задача этого интерфейса - обеспечить возможность для редактирования контента и манипуляции со структурой и стилями документа. Давайте разберем понятие по порядку.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://handleman.github.io/assets/images/articles/dom_tree.png" /></entry><entry><title type="html">Разработка: Набор полезных сниппетов №2</title><link href="https://handleman.github.io/webdev/2018/12/09/snippets-2.html" rel="alternate" type="text/html" title="Разработка: Набор полезных сниппетов №2" /><published>2018-12-09T10:35:00+03:00</published><updated>2018-12-09T10:35:00+03:00</updated><id>https://handleman.github.io/webdev/2018/12/09/snippets-2</id><content type="html" xml:base="https://handleman.github.io/webdev/2018/12/09/snippets-2.html">&lt;p&gt;Делюсь набором полезных сниппетов кода, накопившихся у меня в процессе работы с прошлой статьи.
 На этот раз тут есть все - от bash команд до css: общая черта только то что они так или иначе связаны с веб- разработкой, и у свое время сильно мне помогли.&lt;/p&gt;
 
 &lt;h4 id=&quot;bashunix-как-убить-процесс-занимающий-определенный-порт&quot;&gt;Bash/unix: Как убить процесс занимающий определенный порт.&lt;/h4&gt;
@@ -437,8 +619,4 @@
 &lt;/table&gt;
 &lt;p&gt;Текст переведен, доработан и подчищен от устаревшей информации, Оригинал находится &lt;a href=&quot;http://www.angelfire.com/al4/rcollins/style/fonts.html&quot; target=&quot;_blank&quot;&gt;тут&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Желаю удачи во всех начинаниях.&lt;/p&gt;
-&lt;p class=&quot;postovoy&quot;&gt;Советую &lt;a href=&quot;http://com.uanic.name/&quot; target=&quot;_blank&quot;&gt;Надежный хостинг и регистратор доменных имен&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">В наше время существует множество шрифтов в различных форматах, годных для встраивания на страницу, причем бесплатно. Существуют специальные хостинги шрифтов, благодаря которым встроить нужный шрифт занимает от силы две-три минуты. Причем сам процесс интеграции такого шрифта, немногим сложнее чем сменить статус в социальной сети. Тем не менее даже сейчас нельзя просто так взять и указать один шрифт для элемента страницы. Всегда необходимо продумывать связку шрифтов. Причин для этого достаточно много начиная от того, что браузер клиента может не поддерживать форматы веб-шрифтов (хотя, это маловероятно в современном мире) и заканчивая вопросами кросс-браузерного отображения (подмена шрифта отсутствующего в системе аналогичным по начертанию). Для того чтобы постоянно не держать в голове сходные шрифты, я пользуюсь специальной таблицей которую нашел несколько лет назад в вебе. Беру на себя труд перевести ее и дополнить своими соображениями специально для вас, читателей моего блога. Ссылочка на оригинал будет в самом конце статьи.   Шрифт...Информация Широко используемый шрифт без засечек, разработанный в 1957 швейцарским проектировщиком шрифта Максом Мидинджером и Эдуардом Хоффманом. Шрифт идет в комплекте шрифтов для Mac OS. font-family: Helvetica, 'Helvetica Neue' 'Arial Narrow', sans-serif; Широко используемый на Mac Os и iOS шрифт без засечек, разработанный в 1983 проектировщиком шрифта Вольфгангом Шимпфом и Райнхардом Хаусом. Шрифт идет в комплекте шрифтов для Mac OS. font-family: 'Helvetica Neue Medium', Helvetica, 'Arial Narrow', sans-serif; На мой взгляд самый популярный шрифт без засечек, прямой конкурент для Helvetica. font-family: Arial, Helvetica, sans-serif; Менее популярен нежели Arial.Не используйте его с font-weight:bold; Этот шрифт сам по себе достаточно жирный! font-family: &quot;Arial Black&quot;, Arial, sans-serif; Для этого шрифта очень сложно подобрать аналог, а главное, нужно ли его использовать вообще... font-family: &quot;Comic Sans MS&quot;, cursive; Шрифт, имитирующий стиль печатной машинки. В наше время полностью устарел и встречается редко. Рекомендуется использовать «Courier New». font-family: &quot;Courier New&quot;, Courier, monospace; Древний шрифт, предок Helvetica. Интересен в качестве музейного экспоната. font-family: Geneva, &quot;MS Sans Serif&quot;, sans-serif; Шрифт с засечками. Разработан в Microsoft для использования в интернете. Рассчитан на четкое и читаемое отображение в малом размере. Очень похож на Times New Roman. font-family: Georgia, Times New Roman, serif; Системный шрифт MS Windows, использовался для диалоговых окон, системных сообщений и т. д. font-family: &quot;MS Sans Serif&quot;, Geneva, sans-serif; Немасштабируемый, моноширинный системный шрифт DOS или интерфейса командной строки. font-family: Terminal, monospace; Это — безусловно наиболее распространенный шрифт в Сети. Являлся шрифтом по умолчанию в большинстве браузеров. font-family: &quot;Times New Roman&quot;, Times, serif; Возможно, самый удобочитаемый из шрифтов без засечек, разработанный в Microsoft для использования на экране. Однако, Verdana не должен использоваться бок о бок со схожими шрифтами того же размера, потому что Verdana зрительно кажется больше по размеру. font-family: Verdana, Arial, Helvetica, sans-serif; Текст переведен, доработан и подчищен от устаревшей информации, Оригинал находится тут Желаю удачи во всех начинаниях. Советую Надежный хостинг и регистратор доменных имен</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://handleman.github.io/assets/images/articles/fonts_guide/gid_fonts.jpg" /></entry><entry><title type="html">Разработка: Проверка на адапитивность</title><link href="https://handleman.github.io/webdev/2013/08/13/proverka-na-adaptivnost.html" rel="alternate" type="text/html" title="Разработка: Проверка на адапитивность" /><published>2013-08-13T13:35:59+03:00</published><updated>2013-08-13T13:35:59+03:00</updated><id>https://handleman.github.io/webdev/2013/08/13/proverka-na-adaptivnost</id><content type="html" xml:base="https://handleman.github.io/webdev/2013/08/13/proverka-na-adaptivnost.html">&lt;p&gt;Наткнулся на удобный и миленький сервис для тружеников на ниве адаптивной верстки. Суть этого сервиса проста и гениальна: Вводишь url страницы, и он показывает отображение этой страницы в различных устройствах от компании Apple, причем в очень “вкусном” виде. По сути, подгружает ваш урл в различных разрешениях и подставляет содержимое в красивую рамку.&lt;/p&gt;
-&lt;p&gt;Технически, указанный вами урл, подгружается в несколько &amp;lt;iframe&amp;gt; различной величины. Все очень просто, и это дает возможность поиграться загруженной версткой и даже видеть динамику, что, конечно же, гораздо лучше статичной картинки, которую вы вышлете клиенту по почте. Сервис дает вам специальную ссылку, которую можно давать заказчику, который увидит именно то, что вами задумано.&lt;/p&gt;
-&lt;p&gt;Сервис не годится для полноценного тестинга, зато он отлично подходит для презентации отличий адаптивного дизайна. Да и чего греха таить, я полчаса игрался с этим сервисом, подставляя как результат своих трудов, так и сторонние, известные мне ресурсы.&lt;/p&gt;
-&lt;p&gt;Описывать интерфейс не имеет смысла, попробуйте сами эту прелесть.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://ami.responsivedesign.is/&quot; target=&quot;_blank&quot;&gt;http://ami.responsivedesign.is/&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Наткнулся на удобный и миленький сервис для тружеников на ниве адаптивной верстки. Суть этого сервиса проста и гениальна: Вводишь url страницы, и он показывает отображение этой страницы в различных устройствах от компании Apple, причем в очень “вкусном” виде. По сути, подгружает ваш урл в различных разрешениях и подставляет содержимое в красивую рамку. Технически, указанный вами урл, подгружается в несколько &amp;lt;iframe&amp;gt; различной величины. Все очень просто, и это дает возможность поиграться загруженной версткой и даже видеть динамику, что, конечно же, гораздо лучше статичной картинки, которую вы вышлете клиенту по почте. Сервис дает вам специальную ссылку, которую можно давать заказчику, который увидит именно то, что вами задумано. Сервис не годится для полноценного тестинга, зато он отлично подходит для презентации отличий адаптивного дизайна. Да и чего греха таить, я полчаса игрался с этим сервисом, подставляя как результат своих трудов, так и сторонние, известные мне ресурсы. Описывать интерфейс не имеет смысла, попробуйте сами эту прелесть. http://ami.responsivedesign.is/</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://handleman.github.io/assets/images/articles/adaptive.jpg" /></entry></feed>
+&lt;p class=&quot;postovoy&quot;&gt;Советую &lt;a href=&quot;http://com.uanic.name/&quot; target=&quot;_blank&quot;&gt;Надежный хостинг и регистратор доменных имен&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">В наше время существует множество шрифтов в различных форматах, годных для встраивания на страницу, причем бесплатно. Существуют специальные хостинги шрифтов, благодаря которым встроить нужный шрифт занимает от силы две-три минуты. Причем сам процесс интеграции такого шрифта, немногим сложнее чем сменить статус в социальной сети. Тем не менее даже сейчас нельзя просто так взять и указать один шрифт для элемента страницы. Всегда необходимо продумывать связку шрифтов. Причин для этого достаточно много начиная от того, что браузер клиента может не поддерживать форматы веб-шрифтов (хотя, это маловероятно в современном мире) и заканчивая вопросами кросс-браузерного отображения (подмена шрифта отсутствующего в системе аналогичным по начертанию). Для того чтобы постоянно не держать в голове сходные шрифты, я пользуюсь специальной таблицей которую нашел несколько лет назад в вебе. Беру на себя труд перевести ее и дополнить своими соображениями специально для вас, читателей моего блога. Ссылочка на оригинал будет в самом конце статьи.   Шрифт...Информация Широко используемый шрифт без засечек, разработанный в 1957 швейцарским проектировщиком шрифта Максом Мидинджером и Эдуардом Хоффманом. Шрифт идет в комплекте шрифтов для Mac OS. font-family: Helvetica, 'Helvetica Neue' 'Arial Narrow', sans-serif; Широко используемый на Mac Os и iOS шрифт без засечек, разработанный в 1983 проектировщиком шрифта Вольфгангом Шимпфом и Райнхардом Хаусом. Шрифт идет в комплекте шрифтов для Mac OS. font-family: 'Helvetica Neue Medium', Helvetica, 'Arial Narrow', sans-serif; На мой взгляд самый популярный шрифт без засечек, прямой конкурент для Helvetica. font-family: Arial, Helvetica, sans-serif; Менее популярен нежели Arial.Не используйте его с font-weight:bold; Этот шрифт сам по себе достаточно жирный! font-family: &quot;Arial Black&quot;, Arial, sans-serif; Для этого шрифта очень сложно подобрать аналог, а главное, нужно ли его использовать вообще... font-family: &quot;Comic Sans MS&quot;, cursive; Шрифт, имитирующий стиль печатной машинки. В наше время полностью устарел и встречается редко. Рекомендуется использовать «Courier New». font-family: &quot;Courier New&quot;, Courier, monospace; Древний шрифт, предок Helvetica. Интересен в качестве музейного экспоната. font-family: Geneva, &quot;MS Sans Serif&quot;, sans-serif; Шрифт с засечками. Разработан в Microsoft для использования в интернете. Рассчитан на четкое и читаемое отображение в малом размере. Очень похож на Times New Roman. font-family: Georgia, Times New Roman, serif; Системный шрифт MS Windows, использовался для диалоговых окон, системных сообщений и т. д. font-family: &quot;MS Sans Serif&quot;, Geneva, sans-serif; Немасштабируемый, моноширинный системный шрифт DOS или интерфейса командной строки. font-family: Terminal, monospace; Это — безусловно наиболее распространенный шрифт в Сети. Являлся шрифтом по умолчанию в большинстве браузеров. font-family: &quot;Times New Roman&quot;, Times, serif; Возможно, самый удобочитаемый из шрифтов без засечек, разработанный в Microsoft для использования на экране. Однако, Verdana не должен использоваться бок о бок со схожими шрифтами того же размера, потому что Verdana зрительно кажется больше по размеру. font-family: Verdana, Arial, Helvetica, sans-serif; Текст переведен, доработан и подчищен от устаревшей информации, Оригинал находится тут Желаю удачи во всех начинаниях. Советую Надежный хостинг и регистратор доменных имен</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://handleman.github.io/assets/images/articles/fonts_guide/gid_fonts.jpg" /></entry></feed>

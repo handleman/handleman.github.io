@@ -250,7 +250,7 @@ a {
     text-align: justify; }
   .annotation .info {
     display: block;
-    color: #a5a5a5;
+    color: #8b8b8b;
     float: right; }
 
 @media screen and (max-width: 760px) {
@@ -279,7 +279,8 @@ a {
   height: auto; }
 
 .pagination {
-  color: #8b8b8b; }
+  color: #8b8b8b;
+  font-size: .9em; }
   .pagination .arrow {
     display: inline-block;
     height: 20px;

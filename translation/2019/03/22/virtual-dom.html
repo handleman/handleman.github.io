@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="iPprDb-KWbQjQinbLCQXoHgtFcMpLVuZKqwkWiuC9hI" />
+
+    <meta charset="utf-8" />
+    <title>Перевод: Понимание Virtual DOM</title>
+    <link type="application/atom+xml" rel="alternate" href="https://handleman.github.io/feed.xml" title="Переводы, комиксы, разработка" />
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Перевод: Понимание Virtual DOM | Переводы, комиксы, разработка</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Перевод: Понимание Virtual DOM" />
+<meta property="og:locale" content="ru_RU" />
+<meta name="description" content="Еще один подобный термин, который вы могли встретить - «Virtual DOM». Хотя термин существует уже достаточно давно, он стал более популярен благодаря использованию в среде React. В этой статье я расскажу чем собственно является Virtual DOM, чем он отличается от оригинального DOM и как он используется." />
+<meta property="og:description" content="Еще один подобный термин, который вы могли встретить - «Virtual DOM». Хотя термин существует уже достаточно давно, он стал более популярен благодаря использованию в среде React. В этой статье я расскажу чем собственно является Virtual DOM, чем он отличается от оригинального DOM и как он используется." />
+<link rel="canonical" href="https://handleman.github.io/translation/2019/03/22/virtual-dom.html" />
+<meta property="og:url" content="https://handleman.github.io/translation/2019/03/22/virtual-dom.html" />
+<meta property="og:site_name" content="Переводы, комиксы, разработка" />
+<meta property="og:image" content="https://handleman.github.io/assets/images/articles/virtual_dom.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-03-22T10:35:00+03:00" />
+<script type="application/ld+json">
+{"url":"https://handleman.github.io/translation/2019/03/22/virtual-dom.html","headline":"Перевод: Понимание Virtual DOM","dateModified":"2019-03-22T10:35:00+03:00","datePublished":"2019-03-22T10:35:00+03:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://handleman.github.io/translation/2019/03/22/virtual-dom.html"},"description":"Еще один подобный термин, который вы могли встретить - «Virtual DOM». Хотя термин существует уже достаточно давно, он стал более популярен благодаря использованию в среде React. В этой статье я расскажу чем собственно является Virtual DOM, чем он отличается от оригинального DOM и как он используется.","image":"https://handleman.github.io/assets/images/articles/virtual_dom.jpg","@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="description" content="Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.">
+    <meta name="theme-color" content="#198BCD">
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+</head>
+
+<body>
+<div class="container" id="container" >
+    <div class="site-content">
+        <div class="aside">
+            <div class="logo-container">
+                <a href="/" class="logo animated" title="На главную">На главную</a>
+            </div>
+            <nav>
+                <ul role="menu" class="nav">
+                    
+
+<li>
+    
+        <a href="/about/" role="menuitem" class=" ">
+            Контакты
+        </a>
+    
+</li>
+
+
+                </ul>
+            </nav>
+            <aside>
+                <div class="panel tweet-panel">
+    <a class="twitter-timeline" data-tweet-limit="3" href="https://twitter.com/PHandleman" data-widget-id="536070279681040384">Твиты от @PHandleman</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+            </aside>
+        </div>
+        <main class="content">
+            <article class="article post">
+    <h1>Перевод: Понимание Virtual DOM</h1>
+    <div class="addthis_inline_share_toolbox"></div>
+    <br>
+    <section class="post-content">
+        <h1 id="понимание-virtual-dom">Понимание Virtual DOM</h1>
+
+<p>В прошлом месяце я опубликовал статьи на темы: <a href="https://handleman.github.io/translation/2019/01/11/dom.html">что такое DOM</a>, и <a href="https://handleman.github.io/translation/2019/01/22/shadow-dom.html">Shadow DOM</a> и чем они отличаются.
+Чтобы немного вспомнить, повторим основные понятия. «Объектная Модель Документа» (DOM) - это представление HTML кода страницы в виде Javascript объекта и интерфейс для изменения параметров этого объекта. Shadow DOM можно рассматривать как облегченную (малую) версию DOM. Это тоже объектное представление элементов на странице, но не всей страницы сразу а, изолированные кусочки верстки со своими стилями, что позволяет разбить наш документ на меньшие автономные части, которые можно легко переиспользовать на других страницах сайта (приложения).</p>
+
+<p>Еще один подобный термин, который вы могли встретить - «Virtual DOM».
+Хотя термин существует уже достаточно давно, он стал более популярен благодаря использованию в среде React. В этой статье я расскажу чем собственно является Virtual DOM, чем он отличается от оригинального DOM и как он используется.</p>
+
+<h2 id="зачем-нам-нужен-виртуальный-dom">Зачем нам нужен виртуальный DOM</h2>
+<p>Чтобы понять как появился термин virtual DOM, нам надо вернуться к оригинальному DOM. Как я упоминал ранее DOM можно условно поделить на 2 части: объектное представление страницы и, собственно, API, для манипуляций с этим объектом.</p>
+
+<p>Для примера возьмем простой HTML элемент с неупорядоченным списком и одним элементом внутри:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;head&gt;&lt;/head&gt;</span>
+ <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"list"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"list__item"</span><span class="nt">&gt;</span>List item<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Этот документ может быть представлен в виде следующего DOM-дерева:</p>
+
+<ul>
+  <li>html
+    <ul>
+      <li>head lang=”en”</li>
+    </ul>
+  </li>
+  <li>body
+    <ul>
+      <li>ul class=”list”
+        <ul>
+          <li>li class=”list__item”
+            <ul>
+              <li>“List item”</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Предположим, что мы хотим поменять контент первого элемента на <strong>«List item one»</strong> и, так же, добавить второй элемент. Чтобы сделать это,  нам нужно использовать API от DOM - чтобы найти элементы которые нам нужно апдейтить, создать новые элементы, добавить атрибуты и нужный контент и, на конец, обновить текущее DOM дерево.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">listItemOne</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"list__item"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nx">listItemOne</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">"List item one"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"list"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">listItemTwo</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"li"</span><span class="p">);</span>
+<span class="nx">listItemTwo</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">"list__item"</span><span class="p">);</span>
+<span class="nx">listItemTwo</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">"List item two"</span><span class="p">;</span>
+<span class="nx">list</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">listItemTwo</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<h2 id="dom-был-создан-не-для-этого">DOM был создан не для этого…</h2>
+
+<p>Когда, в далеком 1998, вышла первая версия спецификации DOM, мы строили страницы и управляли ими совсем по другому. Не было необходимости так часто использовать DOM API для изменения контента страницы, как мы делаем это сейчас.</p>
+
+<p>Простые методы, такие как <code class="highlighter-rouge">document.getElementsByClassName()</code> хороши в малых масштабах, но, если нам нужно апдейтить несколько элементов на странице каждые несколько секунд — постоянный запрос и апдейт конкретного элемента, может выйти очень дорогим для общей производительности страницы.</p>
+
+<p>Более того,  сама структура API такая, сто обычно проще выполнить более тяжелые операции над большим куском разметки, нежели искать и обновлять конкретный элемент каждый раз.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"list"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nx">list</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">`
+&lt;li class="list__item"&gt;List item one&lt;/li&gt;
+&lt;li class="list__item"&gt;List item two&lt;/li&gt;
+`</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>В этом конкретном примере, разница в производительности между методами незначительная. Однако, с ростом объёмов страницы, становится более важным выбирать и обновлять только то, что нужно</p>
+
+<h2 id="-но-ведь-был-virtual-dom">… Но ведь был Virtual DOM!</h2>
+
+<p>Virtual DOM был придуман, для того чтобы решить эти проблемы частых запросов к разметке, с уклоном в перформанс. В отличие от DOM или того же Shadow DOM, виртуальный DOM не является официальной спецификацией, а, скорее просто новый общепринятый способ работы с DOM.</p>
+
+<p>Виртуальный DOM можно считать копией обычного DOM. Над этой копией можно работать сколько угодно часто, не используя при этом тяжелые вызовы методов оригинального DOM. Как только все необходимые изменения будут сделаны в рамках виртуального DOM, мы увидим какие конкретные изменения должны пойти в оригинальный DOM, и сделаем это направленным и оптимизированным способом.</p>
+
+<h2 id="как-выглядит-virtual-dom">Как выглядит Virtual DOM?</h2>
+<p>Имя «виртуальный DOM” только добавляет мистики на то, что происходит на самом деле. По факту виртуальный дом это обычный javascript объект.</p>
+
+<p>Предлагаю вернуться к DOM дереву, которое мы рассматривали ранее:</p>
+<ul>
+  <li>html
+    <ul>
+      <li>head lang=”en”</li>
+    </ul>
+  </li>
+  <li>body
+    <ul>
+      <li>ul class=”list”
+        <ul>
+          <li>li class=”list__item”
+            <ul>
+              <li>“List item”</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Это же дерево может быть представлено в виде javascript объекта:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">vdom</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">tagName</span><span class="p">:</span> <span class="s2">"html"</span><span class="p">,</span>
+    <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="na">tagName</span><span class="p">:</span> <span class="s2">"head"</span> <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"body"</span><span class="p">,</span>
+            <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="na">tagName</span><span class="p">:</span> <span class="s2">"ul"</span><span class="p">,</span>
+                    <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
+                    <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"li"</span><span class="p">,</span>
+                            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span>
+                            <span class="na">textContent</span><span class="p">:</span> <span class="s2">"List item"</span>
+                        <span class="p">}</span> <span class="c1">// end li</span>
+                    <span class="p">]</span>
+                <span class="p">}</span> <span class="c1">// end ul</span>
+            <span class="p">]</span>
+        <span class="p">}</span> <span class="c1">// end body</span>
+    <span class="p">]</span>
+<span class="p">}</span> <span class="c1">// end html</span>
+
+</code></pre></div></div>
+
+<p>Представим что данный объект это наше виртуальное DOM-дерево. Как и оригинальный DOM, это не более чем объектное представление нашего HTML документа. Но, из-за того, что это простой  отдельный javascript объект, мы можем свободно и часто менять его свойства, не затрагивая настоящий актуальный DOM, до тех пор, пока нам это не понадобится.</p>
+
+<p>Так же, вместо того чтобы работать с объектом целиком, чаще принято работать с малыми секциями виртуального DOM. Например мы можем создать виртуальный элемент списка, который потом «спроецируется» на реальный неупорядоченный список находящийся внутри DOM страницы.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">tagName</span><span class="p">:</span> <span class="s2">"ul"</span><span class="p">,</span>
+    <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
+    <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"li"</span><span class="p">,</span>
+            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span>
+            <span class="na">textContent</span><span class="p">:</span> <span class="s2">"List item"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="под-капотом-виртуального-dom">Под капотом виртуального DOM</h2>
+
+<p>Теперь, когда мы видели как выглядит Virtual DOM, резонно задать вопрос:, как это может решить проблемы перфоманса и доступа к содержимому страницы?</p>
+
+<p>Как уже упоминалось ранее, с помощью virtual DOM мы можем выделить конкретные изменения которые мы хотим внести в DOM. Давайте вернемся к нашему примеру с неупорядоченным списком и внесем те же изменения с помощью DOM API.</p>
+
+<p>Первое что необходимо, это создать копию виртуального DOM, содержащую изменения которые мы хотим сделать. Пока нам не нужно использовать DOM API, мы можем просто создать новый javascript объект.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">copy</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">tagName</span><span class="p">:</span> <span class="s2">"ul"</span><span class="p">,</span>
+    <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
+    <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"li"</span><span class="p">,</span>
+            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span>
+            <span class="na">textContent</span><span class="p">:</span> <span class="s2">"List item one"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"li"</span><span class="p">,</span>
+            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span>
+            <span class="na">textContent</span><span class="p">:</span> <span class="s2">"List item two"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Этот объект используется для создания, так называемого, «дифа»(“diff”) - разницы между настоящим виртуальным DOM, в нашем случае списком (&lt;ul&gt;) и нашим объектом с новыми данными. «Дифы» могут выглядеть примерно так:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">diffs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="na">newNode</span><span class="p">:</span> <span class="p">{</span> <span class="cm">/* new version of list item one */</span> <span class="p">},</span>
+        <span class="na">oldNode</span><span class="p">:</span> <span class="p">{</span> <span class="cm">/* original version of list item one */</span> <span class="p">},</span>
+        <span class="na">index</span><span class="p">:</span> <span class="cm">/* index of element in parent's list of child nodes */</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="na">newNode</span><span class="p">:</span> <span class="p">{</span> <span class="cm">/* list item two */</span> <span class="p">},</span>
+        <span class="na">index</span><span class="p">:</span> <span class="p">{</span> <span class="cm">/* */</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+</code></pre></div></div>
+
+<p>Этот массив содержит инструкции («дифы») того, как нужно обновить актуальный DOM. Как только все эти «дифы» будут собраны мы сможем «влить» все изменения в оригинальный DOM, делая только те изменения, которые нам нужны.</p>
+
+<p>Например, мы можем пройтись циклом через все «дифы» и, в зависимости от указанных данных, добавить новый  элемент или обновить уже имеющийся.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">domElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"list"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="nx">diffs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">diff</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="kd">const</span> <span class="nx">newElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">diff</span><span class="p">.</span><span class="nx">newNode</span><span class="p">.</span><span class="nx">tagName</span><span class="p">);</span>
+    <span class="cm">/* Add attributes ... */</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="nx">diff</span><span class="p">.</span><span class="nx">oldNode</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// If there is an old version, replace it with the new version</span>
+        <span class="nx">domElement</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nx">diff</span><span class="p">.</span><span class="nx">newNode</span><span class="p">,</span> <span class="nx">diff</span><span class="p">.</span><span class="nx">index</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// If no old version exists, create a new node</span>
+        <span class="nx">domElement</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">diff</span><span class="p">.</span><span class="nx">newNode</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Важно понимать, что  это всего лишь упрощенный, обрезанный пример того, как можно использовать виртуальный DOM, причем, существует множество вариантов которые мы здесь не затрагиваем.</p>
+
+<h2 id="виртуальный-dom-и-фреймворки">Виртуальный DOM и фреймворки</h2>
+
+<p>Чаще с virtual DOM работают через какой-нибудь фреймворк, вместо того чтобы работать с ним в ручную - как в примере выше.</p>
+
+<p>Такие фреймворки как React или Vue используют внутри себя концепцию виртуального DOM, для оптимизации скорости работы с подлинным DOM страницы. Для примера, наш компонент списка мог бы быть реализован с React таким способом:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"ul"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"li"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span> <span class="s2">"List item"</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Если бы мы захотели обновить наш лист, мы могли бы всего-лишь переписать сам темплейт и, затем, вызвать <code class="highlighter-rouge">ReactDOM.render()</code> снова, передав новый лист.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">newList</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"ul"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"li"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span> <span class="s2">"List item one"</span><span class="p">),</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"li"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span> <span class="s2">"List item two"</span><span class="p">);</span>
+<span class="p">);</span>
+
+<span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">newList</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">),</span> <span class="mi">5000</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Из-за того, что React использует виртуальный DOM, даже в случае если мы переписываем весь темплейт, применятся только те части которые были измененны. Если мы заглянем в dev-tools, в тот момент, когда происходят изменения — мы увидим конкретный элемент и его части которые были подвержены изменениям.</p>
+
+<h2 id="dom-против-виртуального-dom">DOM против виртуального DOM</h2>
+<p>Подводя итоги: виртуальный DOM это просто инструмент который позволяет нам взаимодействовать с DOM страницы более простым и производительным способом. Это, по сути, простой Javascript объект копирующий оригинальный DOM, но, который мы можем изменять как угодно, столько раз сколько потребуется.</p>
+
+<p>Изменения сделанные в этом объекте сопоставляются с оригинальным DOM, и происходит изменение только конкретных его элементов, что значительно снижает общее количество обращений к оригинальному DOM.</p>
+
+<p><strong>Данный текст это мой вольный перевод оригинальной статьи <a href="https://ireaderinokun.com">Ire Aderinokun</a> - <a href="https://bitsofco.de/understanding-the-virtual-dom/">Understanding the Virtual DOM</a></strong></p>
+
+
+    </section>
+    <section class="post-info text-muted"><small>Опубликовано <strong>22 Mar 2019</strong> </small></section>
+</article>
+<hr />
+<div class="post-comments" id="comments" aria-label="User comments">
+    <div class="  simple-comments ">
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = "https://handleman.github.io/translation/2019/03/22/virtual-dom.html";
+                this.page.identifier = "/translation/2019/03/22/virtual-dom";
+            };
+
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://phandleman.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</div>
+
+
+        </main>
+        <footer class="footer">
+            <nav>
+                <ul class="nav" role="menu">
+                    <a href="/"  title="На главную" role="menuitem">На главную</a>
+                
+
+<li>
+    
+        <a href="/about/" role="menuitem" class=" ">
+            Контакты
+        </a>
+    
+</li>
+
+                </ul>
+            </nav>
+            <button class="scroll-top" type="button" onclick="window.scrollTop();"> <span class="icon"></span></button>
+        </footer>
+
+    </div>
+</div>
+
+<script src="/assets/js/page.js"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5304a714568001ec"></script>
+</body>
+</html>

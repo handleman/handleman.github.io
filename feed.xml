@@ -1,4 +1,254 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2019-03-18T12:35:49+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Перевод: что такое Shadow DOM</title><link href="https://handleman.github.io/translation/2019/01/22/shadow-dom.html" rel="alternate" type="text/html" title="Перевод: что такое Shadow DOM" /><published>2019-01-22T13:35:00+03:00</published><updated>2019-01-22T13:35:00+03:00</updated><id>https://handleman.github.io/translation/2019/01/22/shadow-dom</id><content type="html" xml:base="https://handleman.github.io/translation/2019/01/22/shadow-dom.html">&lt;p&gt;Пару недель назад был опубликован пост про то, &lt;a href=&quot;https://handleman.github.io/translation/2019/01/11/dom.html&quot;&gt;что из себя представляет DOM&lt;/a&gt;. Чтобы освежить понятие в памяти, DOM (Объектное представление документа) это представление HTML кода в виде объекта, который используется браузером для определения того, что должно быть отрисовано в окне. Так же DOM используется в JavaScript для редактирования контента и структуры страницы, а так же для стилизации элементов.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2019-03-22T11:46:10+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Перевод: Понимание Virtual DOM</title><link href="https://handleman.github.io/translation/2019/03/22/virtual-dom.html" rel="alternate" type="text/html" title="Перевод: Понимание Virtual DOM" /><published>2019-03-22T10:35:00+03:00</published><updated>2019-03-22T10:35:00+03:00</updated><id>https://handleman.github.io/translation/2019/03/22/virtual-dom</id><content type="html" xml:base="https://handleman.github.io/translation/2019/03/22/virtual-dom.html">&lt;h1 id=&quot;понимание-virtual-dom&quot;&gt;Понимание Virtual DOM&lt;/h1&gt;
+
+&lt;p&gt;В прошлом месяце я опубликовал статьи на темы: &lt;a href=&quot;https://handleman.github.io/translation/2019/01/11/dom.html&quot;&gt;что такое DOM&lt;/a&gt;, и &lt;a href=&quot;https://handleman.github.io/translation/2019/01/22/shadow-dom.html&quot;&gt;Shadow DOM&lt;/a&gt; и чем они отличаются.
+Чтобы немного вспомнить, повторим основные понятия. «Объектная Модель Документа» (DOM) - это представление HTML кода страницы в виде Javascript объекта и интерфейс для изменения параметров этого объекта. Shadow DOM можно рассматривать как облегченную (малую) версию DOM. Это тоже объектное представление элементов на странице, но не всей страницы сразу а, изолированные кусочки верстки со своими стилями, что позволяет разбить наш документ на меньшие автономные части, которые можно легко переиспользовать на других страницах сайта (приложения).&lt;/p&gt;
+
+&lt;p&gt;Еще один подобный термин, который вы могли встретить - «Virtual DOM».
+Хотя термин существует уже достаточно давно, он стал более популярен благодаря использованию в среде React. В этой статье я расскажу чем собственно является Virtual DOM, чем он отличается от оригинального DOM и как он используется.&lt;/p&gt;
+
+&lt;h2 id=&quot;зачем-нам-нужен-виртуальный-dom&quot;&gt;Зачем нам нужен виртуальный DOM&lt;/h2&gt;
+&lt;p&gt;Чтобы понять как появился термин virtual DOM, нам надо вернуться к оригинальному DOM. Как я упоминал ранее DOM можно условно поделить на 2 части: объектное представление страницы и, собственно, API, для манипуляций с этим объектом.&lt;/p&gt;
+
+&lt;p&gt;Для примера возьмем простой HTML элемент с неупорядоченным списком и одним элементом внутри:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;en&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;list&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;list__item&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;List item&lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Этот документ может быть представлен в виде следующего DOM-дерева:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;html
+    &lt;ul&gt;
+      &lt;li&gt;head lang=”en”&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;body
+    &lt;ul&gt;
+      &lt;li&gt;ul class=”list”
+        &lt;ul&gt;
+          &lt;li&gt;li class=”list__item”
+            &lt;ul&gt;
+              &lt;li&gt;“List item”&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Предположим, что мы хотим поменять контент первого элемента на &lt;strong&gt;«List item one»&lt;/strong&gt; и, так же, добавить второй элемент. Чтобы сделать это,  нам нужно использовать API от DOM - чтобы найти элементы которые нам нужно апдейтить, создать новые элементы, добавить атрибуты и нужный контент и, на конец, обновить текущее DOM дерево.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;listItemOne&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementsByClassName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;list__item&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;listItemOne&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textContent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;List item one&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementsByClassName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;list&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;listItemTwo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;li&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;listItemTwo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;classList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;list__item&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;listItemTwo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textContent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;List item two&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;listItemTwo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;dom-был-создан-не-для-этого&quot;&gt;DOM был создан не для этого…&lt;/h2&gt;
+
+&lt;p&gt;Когда, в далеком 1998, вышла первая версия спецификации DOM, мы строили страницы и управляли ими совсем по другому. Не было необходимости так часто использовать DOM API для изменения контента страницы, как мы делаем это сейчас.&lt;/p&gt;
+
+&lt;p&gt;Простые методы, такие как &lt;code class=&quot;highlighter-rouge&quot;&gt;document.getElementsByClassName()&lt;/code&gt; хороши в малых масштабах, но, если нам нужно апдейтить несколько элементов на странице каждые несколько секунд — постоянный запрос и апдейт конкретного элемента, может выйти очень дорогим для общей производительности страницы.&lt;/p&gt;
+
+&lt;p&gt;Более того,  сама структура API такая, сто обычно проще выполнить более тяжелые операции над большим куском разметки, нежели искать и обновлять конкретный элемент каждый раз.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementsByClassName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;list&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`
+&amp;lt;li class=&quot;list__item&quot;&amp;gt;List item one&amp;lt;/li&amp;gt;
+&amp;lt;li class=&quot;list__item&quot;&amp;gt;List item two&amp;lt;/li&amp;gt;
+`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;В этом конкретном примере, разница в производительности между методами незначительная. Однако, с ростом объёмов страницы, становится более важным выбирать и обновлять только то, что нужно&lt;/p&gt;
+
+&lt;h2 id=&quot;-но-ведь-был-virtual-dom&quot;&gt;… Но ведь был Virtual DOM!&lt;/h2&gt;
+
+&lt;p&gt;Virtual DOM был придуман, для того чтобы решить эти проблемы частых запросов к разметке, с уклоном в перформанс. В отличие от DOM или того же Shadow DOM, виртуальный DOM не является официальной спецификацией, а, скорее просто новый общепринятый способ работы с DOM.&lt;/p&gt;
+
+&lt;p&gt;Виртуальный DOM можно считать копией обычного DOM. Над этой копией можно работать сколько угодно часто, не используя при этом тяжелые вызовы методов оригинального DOM. Как только все необходимые изменения будут сделаны в рамках виртуального DOM, мы увидим какие конкретные изменения должны пойти в оригинальный DOM, и сделаем это направленным и оптимизированным способом.&lt;/p&gt;
+
+&lt;h2 id=&quot;как-выглядит-virtual-dom&quot;&gt;Как выглядит Virtual DOM?&lt;/h2&gt;
+&lt;p&gt;Имя «виртуальный DOM” только добавляет мистики на то, что происходит на самом деле. По факту виртуальный дом это обычный javascript объект.&lt;/p&gt;
+
+&lt;p&gt;Предлагаю вернуться к DOM дереву, которое мы рассматривали ранее:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;html
+    &lt;ul&gt;
+      &lt;li&gt;head lang=”en”&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;body
+    &lt;ul&gt;
+      &lt;li&gt;ul class=”list”
+        &lt;ul&gt;
+          &lt;li&gt;li class=”list__item”
+            &lt;ul&gt;
+              &lt;li&gt;“List item”&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Это же дерево может быть представлено в виде javascript объекта:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;vdom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;head&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;body&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ul&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;li&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                            &lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list__item&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+                            &lt;span class=&quot;na&quot;&gt;textContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;List item&quot;&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// end li&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// end ul&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// end body&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// end html&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Представим что данный объект это наше виртуальное DOM-дерево. Как и оригинальный DOM, это не более чем объектное представление нашего HTML документа. Но, из-за того, что это простой  отдельный javascript объект, мы можем свободно и часто менять его свойства, не затрагивая настоящий актуальный DOM, до тех пор, пока нам это не понадобится.&lt;/p&gt;
+
+&lt;p&gt;Так же, вместо того чтобы работать с объектом целиком, чаще принято работать с малыми секциями виртуального DOM. Например мы можем создать виртуальный элемент списка, который потом «спроецируется» на реальный неупорядоченный список находящийся внутри DOM страницы.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ul&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;li&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list__item&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;textContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;List item&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;под-капотом-виртуального-dom&quot;&gt;Под капотом виртуального DOM&lt;/h2&gt;
+
+&lt;p&gt;Теперь, когда мы видели как выглядит Virtual DOM, резонно задать вопрос:, как это может решить проблемы перфоманса и доступа к содержимому страницы?&lt;/p&gt;
+
+&lt;p&gt;Как уже упоминалось ранее, с помощью virtual DOM мы можем выделить конкретные изменения которые мы хотим внести в DOM. Давайте вернемся к нашему примеру с неупорядоченным списком и внесем те же изменения с помощью DOM API.&lt;/p&gt;
+
+&lt;p&gt;Первое что необходимо, это создать копию виртуального DOM, содержащую изменения которые мы хотим сделать. Пока нам не нужно использовать DOM API, мы можем просто создать новый javascript объект.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;copy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ul&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;li&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list__item&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;textContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;List item one&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;li&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list__item&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;textContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;List item two&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Этот объект используется для создания, так называемого, «дифа»(“diff”) - разницы между настоящим виртуальным DOM, в нашем случае списком (&amp;lt;ul&amp;gt;) и нашим объектом с новыми данными. «Дифы» могут выглядеть примерно так:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;diffs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;newNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* new version of list item one */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;oldNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* original version of list item one */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* index of element in parent's list of child nodes */&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;newNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* list item two */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Этот массив содержит инструкции («дифы») того, как нужно обновить актуальный DOM. Как только все эти «дифы» будут собраны мы сможем «влить» все изменения в оригинальный DOM, делая только те изменения, которые нам нужны.&lt;/p&gt;
+
+&lt;p&gt;Например, мы можем пройтись циклом через все «дифы» и, в зависимости от указанных данных, добавить новый  элемент или обновить уже имеющийся.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;domElement&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementsByClassName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;list&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;diffs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;newElement&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;newNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;/* Add attributes ... */&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;oldNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// If there is an old version, replace it with the new version&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;domElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;replaceChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;newNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// If no old version exists, create a new node&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;domElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;newNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Важно понимать, что  это всего лишь упрощенный, обрезанный пример того, как можно использовать виртуальный DOM, причем, существует множество вариантов которые мы здесь не затрагиваем.&lt;/p&gt;
+
+&lt;h2 id=&quot;виртуальный-dom-и-фреймворки&quot;&gt;Виртуальный DOM и фреймворки&lt;/h2&gt;
+
+&lt;p&gt;Чаще с virtual DOM работают через какой-нибудь фреймворк, вместо того чтобы работать с ним в ручную - как в примере выше.&lt;/p&gt;
+
+&lt;p&gt;Такие фреймворки как React или Vue используют внутри себя концепцию виртуального DOM, для оптимизации скорости работы с подлинным DOM страницы. Для примера, наш компонент списка мог бы быть реализован с React таким способом:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ReactDOM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react-dom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ul&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;li&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list__item&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;List item&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;ReactDOM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Если бы мы захотели обновить наш лист, мы могли бы всего-лишь переписать сам темплейт и, затем, вызвать &lt;code class=&quot;highlighter-rouge&quot;&gt;ReactDOM.render()&lt;/code&gt; снова, передав новый лист.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;newList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ul&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;li&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list__item&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;List item one&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;li&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;list__item&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;List item two&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ReactDOM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;newList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Из-за того, что React использует виртуальный DOM, даже в случае если мы переписываем весь темплейт, применятся только те части которые были измененны. Если мы заглянем в dev-tools, в тот момент, когда происходят изменения — мы увидим конкретный элемент и его части которые были подвержены изменениям.&lt;/p&gt;
+
+&lt;h2 id=&quot;dom-против-виртуального-dom&quot;&gt;DOM против виртуального DOM&lt;/h2&gt;
+&lt;p&gt;Подводя итоги: виртуальный DOM это просто инструмент который позволяет нам взаимодействовать с DOM страницы более простым и производительным способом. Это, по сути, простой Javascript объект копирующий оригинальный DOM, но, который мы можем изменять как угодно, столько раз сколько потребуется.&lt;/p&gt;
+
+&lt;p&gt;Изменения сделанные в этом объекте сопоставляются с оригинальным DOM, и происходит изменение только конкретных его элементов, что значительно снижает общее количество обращений к оригинальному DOM.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Данный текст это мой вольный перевод оригинальной статьи &lt;a href=&quot;https://ireaderinokun.com&quot;&gt;Ire Aderinokun&lt;/a&gt; - &lt;a href=&quot;https://bitsofco.de/understanding-the-virtual-dom/&quot;&gt;Understanding the Virtual DOM&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Понимание Virtual DOM</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://handleman.github.io/assets/images/articles/virtual_dom.jpg" /></entry><entry><title type="html">Перевод: Что такое Shadow DOM</title><link href="https://handleman.github.io/translation/2019/01/22/shadow-dom.html" rel="alternate" type="text/html" title="Перевод: Что такое Shadow DOM" /><published>2019-01-22T13:35:00+03:00</published><updated>2019-01-22T13:35:00+03:00</updated><id>https://handleman.github.io/translation/2019/01/22/shadow-dom</id><content type="html" xml:base="https://handleman.github.io/translation/2019/01/22/shadow-dom.html">&lt;p&gt;Пару недель назад был опубликован пост про то, &lt;a href=&quot;https://handleman.github.io/translation/2019/01/11/dom.html&quot;&gt;что из себя представляет DOM&lt;/a&gt;. Чтобы освежить понятие в памяти, DOM (Объектное представление документа) это представление HTML кода в виде объекта, который используется браузером для определения того, что должно быть отрисовано в окне. Так же DOM используется в JavaScript для редактирования контента и структуры страницы, а так же для стилизации элементов.&lt;/p&gt;
 
 &lt;p&gt;Для примера рассмотрим следующий документ:&lt;/p&gt;
 
@@ -686,7 +936,4 @@ span {
 &lt;p&gt; &lt;img style=&quot;display: block; width: 100%; height: auto; margin-bottom: 2em;&quot; src=&quot;/assets/images/articles/comics_hellboy/pict2.jpg&quot; alt=&quot;&quot; width=&quot;1280&quot; height=&quot;1024&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img style=&quot;display: block; width: 100%; height: auto; margin-bottom: 2em;&quot; src=&quot;/assets/images/articles/comics_hellboy/pict3.jpg&quot; alt=&quot;&quot; width=&quot;880&quot; height=&quot;1338&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img style=&quot;display: block; width: 100%; height: auto; margin-bottom: 2em;&quot; src=&quot;/assets/images/articles/comics_hellboy/pict4.jpg&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;1800&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a class=&quot;btn btn-success&quot; href=&quot;https://yadi.sk/d/mPLvChzKZoRuL&quot; rel=&quot;nofollow&quot;&gt;Скачать hellboy на русском&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Это мой любимый персонаж. Сразу хочу сказать что персонаж именно комикс-вселенной. Фильмы и мультики лично мне совсем не нравятся. Hellboy из комиксов сильно отличается от Хелбоя на экране, как и сюжетно, так и характером персонажей. Комикс определённо для взрослой аудитории, он мрачен, умен и эстетически выверен и проработан до мелочей. У комикса, в отличие от аналогов, сильная сюжетная база, основанная на фольклоре различных народов, начиная от английских сказочных персонажей и заканчивая японской мифологией. Да что там говорить, в комиксе присутствует Баба-яга, на деревянных ногах, которая летает в ступе. Сюжет пересказывать особого смысла нету, дабы не портить вам впечатление и не вызывать ложных ожиданий. Я поступлю лучше. Я поделюсь с вами ссылкой на полную историю Хелбоя в русском переводе. Перевод любительский, взят из открытых источников, предназначен для ознакомления. Я сейчас потихоньку выкупаю официальные издания от замечательного издательства “42”. Видеть творчество Миньолы на бумаге дорогого стоит. Кстати, именно наличие неофициальных переводов в сети, должно быть выгодно для издательства, иначе никто бы и не знал о том, что есть такие замечательные вещи.   Скачать hellboy на русском</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://handleman.github.io/assets/images/articles/comics_hellboy/thumb.jpg" /></entry><entry><title type="html">Разработка: Таблица размера шрифтов</title><link href="https://handleman.github.io/webdev/2014/01/07/tablicza-razmera-shriftov-px-em.html" rel="alternate" type="text/html" title="Разработка: Таблица размера шрифтов" /><published>2014-01-07T13:35:59+03:00</published><updated>2014-01-07T13:35:59+03:00</updated><id>https://handleman.github.io/webdev/2014/01/07/tablicza-razmera-shriftov-px-em</id><content type="html" xml:base="https://handleman.github.io/webdev/2014/01/07/tablicza-razmera-shriftov-px-em.html">&lt;p&gt;В своих работах, я стараюсь размер шрифтов прописывать в em. Очевидная выгода этого подхода — возможность быстро и удобно менять размер текста сразу для множества элементов. Изменив значение величины текста в родительском элементе, автоматически поменяются размеры шрифта во всех дочерних контейнерах, причем  все надписи будут смотреться гармонично.&lt;/p&gt;
-&lt;p&gt;&lt;span&gt;У этого подхода есть один недостаток: для каждого дочернего элемента страницы приходится заново рассчитывать размер согласно пропорции: (искомый размер/размер родительского). Причем если размер основного текста отличается от стандартного для современных браузеров (16px), то, для соответствия макету, надо заново все пересчитывать.&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span&gt;&lt;span&gt;На практике дизайнеры обычно используют шрифты от 13px до 18px для основного текста. Для того чтобы избавиться от этого рутинного пересчета я подготовил таблицу соответствия размера в px  для размера в em, начиная от 13px для основного текста, и заканчивая &lt;/span&gt;&lt;span&gt;18px&lt;/span&gt;&lt;span&gt;. Как это таблицей пользоваться? Ее можно распечатать и держать под рукой во время верстки, либо копировать значения прямо с этой страницы и вам не придется каждый раз пользоваться калькулятором.&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://gist.github.com/handleman/7703990.js&quot;&gt;&lt;/script&gt;</content><author><name></name></author><summary type="html">В своих работах, я стараюсь размер шрифтов прописывать в em. Очевидная выгода этого подхода — возможность быстро и удобно менять размер текста сразу для множества элементов. Изменив значение величины текста в родительском элементе, автоматически поменяются размеры шрифта во всех дочерних контейнерах, причем  все надписи будут смотреться гармонично. У этого подхода есть один недостаток: для каждого дочернего элемента страницы приходится заново рассчитывать размер согласно пропорции: (искомый размер/размер родительского). Причем если размер основного текста отличается от стандартного для современных браузеров (16px), то, для соответствия макету, надо заново все пересчитывать. На практике дизайнеры обычно используют шрифты от 13px до 18px для основного текста. Для того чтобы избавиться от этого рутинного пересчета я подготовил таблицу соответствия размера в px  для размера в em, начиная от 13px для основного текста, и заканчивая 18px. Как это таблицей пользоваться? Ее можно распечатать и держать под рукой во время верстки, либо копировать значения прямо с этой страницы и вам не придется каждый раз пользоваться калькулятором.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://handleman.github.io/assets/images/articles/TableofTypeMug.jpg" /></entry></feed>
+&lt;p&gt;&lt;a class=&quot;btn btn-success&quot; href=&quot;https://yadi.sk/d/mPLvChzKZoRuL&quot; rel=&quot;nofollow&quot;&gt;Скачать hellboy на русском&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Это мой любимый персонаж. Сразу хочу сказать что персонаж именно комикс-вселенной. Фильмы и мультики лично мне совсем не нравятся. Hellboy из комиксов сильно отличается от Хелбоя на экране, как и сюжетно, так и характером персонажей. Комикс определённо для взрослой аудитории, он мрачен, умен и эстетически выверен и проработан до мелочей. У комикса, в отличие от аналогов, сильная сюжетная база, основанная на фольклоре различных народов, начиная от английских сказочных персонажей и заканчивая японской мифологией. Да что там говорить, в комиксе присутствует Баба-яга, на деревянных ногах, которая летает в ступе. Сюжет пересказывать особого смысла нету, дабы не портить вам впечатление и не вызывать ложных ожиданий. Я поступлю лучше. Я поделюсь с вами ссылкой на полную историю Хелбоя в русском переводе. Перевод любительский, взят из открытых источников, предназначен для ознакомления. Я сейчас потихоньку выкупаю официальные издания от замечательного издательства “42”. Видеть творчество Миньолы на бумаге дорогого стоит. Кстати, именно наличие неофициальных переводов в сети, должно быть выгодно для издательства, иначе никто бы и не знал о том, что есть такие замечательные вещи.   Скачать hellboy на русском</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://handleman.github.io/assets/images/articles/comics_hellboy/thumb.jpg" /></entry></feed>

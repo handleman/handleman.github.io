@@ -89,6 +89,11 @@ ul.nav {
         font-size: 1em; } }
 .content {
   grid-area: content; }
+  .content .comic_page {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 2em; }
 
 @media screen and (max-width: 760px) {
   .content {

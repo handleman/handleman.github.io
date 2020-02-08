@@ -76,7 +76,7 @@
 
 <p><img src="https://bitsofco.de/content/images/2018/11/HTML-to-Render-Tree-to-Final.png" alt="HTML-to-Render-Tree-to-Final" title="Critical Rendering Path" /></p>
 
-<p>Результат выполнения первого этапа это так называемое «рендер-дерево».  Рендер-дерево это представление HTML элементов, которое должны быть отрисованы вместе со связанными с ними стилями. Для того чтобы построить такое дерево браузеру нужно две вещи:</p>
+<p>Результат выполнения первого этапа это так называемое «рендер-дерево». Рендер-дерево это представление HTML элементов, которое должны быть отрисованы вместе со связанными с ними стилями. Для того чтобы построить такое дерево браузеру нужно две вещи:</p>
 
 <ol>
   <li>CSSOM - Представление стилей связанных с элементами на странице.</li>
@@ -90,15 +90,16 @@
 <p>Структурно DOM принимает вид упорядоченного дерева, потому как оно представлено в виде единственного родительского элемента от которого ответвляются все остальные “ветви”, каждая их которых имеет свои дочерние элементы “листья дерева”. В нашем случае главный родительский элемент это тег <strong>&lt;html&gt;</strong>, дочерние ответвления это другие вложенные теги и элементы HTML документа, а завершают цепочку листья - контент внутри тегов.</p>
 
 <p>Давайте рассмотрим следующий пример:</p>
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
- <span class="nt">&lt;head&gt;</span>
- <span class="nt">&lt;title&gt;</span>My first web page<span class="nt">&lt;/title&gt;</span>
- <span class="nt">&lt;/head&gt;</span>
- <span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;h1&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;p&gt;</span>How are you?<span class="nt">&lt;/p&gt;</span>
-  <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>My first web page<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span>How are you?<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
 </code></pre></div></div>
 
@@ -140,20 +141,22 @@
 
 <h3 id="dom-это-не-ваш-исходный-код">DOM это не ваш исходный код</h3>
 
-<p>Несмотря на то, что DOM строится по исходному коду HTML документа, не всегда это одно и то же.  Есть два случая, в которых DOM может отличаться от исходного HTML:</p>
+<p>Несмотря на то, что DOM строится по исходному коду HTML документа, не всегда это одно и то же. Есть два случая, в которых DOM может отличаться от исходного HTML:</p>
 
 <p><strong>1. Когда HTML не валидный.</strong></p>
 
 <p>DOM это интерфейс к валидному HTML документу. Во время его создания, браузер может откорректировать некоторые невалидные элементы.</p>
 
 <p>Для примера рассмотрим следующий документ:</p>
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
-    <span class="nt">&lt;html&gt;</span>
-        Hello, world!
-    <span class="nt">&lt;/html&gt;</span>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    Hello, world!
+<span class="nt">&lt;/html&gt;</span>
 </code></pre></div></div>
 
 <p>В документе отсутствуют &lt;head&gt; и &lt;body&gt;, которые нужны для того чтобы документ был валидным. Но, если мы взглянем на DOM дерево, полученное в результате, мы увидим что это было исправлено:</p>
+
 <ul>
   <li>html
     <ul>
@@ -172,7 +175,8 @@
 <p>Вместе с тем, что это интерфейс для отображения HTML документа, DOM также может быть модифицирован, тем самым превратившись в динамический ресурс.</p>
 
 <p>К примеру, мы можем добавлять новые вершины в DOM дерево</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">newParagraph</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"p"</span><span class="p">);</span>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">newParagraph</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'p'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">paragraphContent</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s2">"I'm new!"</span><span class="p">);</span>
 <span class="nx">newParagraph</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">paragraphContent</span><span class="p">);</span>
 <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">newParagraph</span><span class="p">);</span>
@@ -187,17 +191,19 @@
 <p>Из-за того, что Render-tree заинтересовано только в том что должно быть отрисовано, оно не содержит элементов, которые визуально скрыты от пользователей.</p>
 
 <p>Например это могут быть все элементы, для которых выставлен ‘display:none’ в CSS стилях.</p>
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;head&gt;&lt;/head&gt;</span>
-  <span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;h1&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">"display: none;"</span><span class="nt">&gt;</span>How are you?<span class="nt">&lt;/p&gt;</span>
-  <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;head&gt;&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">"display: none;"</span><span class="nt">&gt;</span>How are you?<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
 </code></pre></div></div>
 
 <p>В примере выше, DOM будет содержать элемент &lt;p&gt;:</p>
+
 <ul>
   <li>html
     <ul>
@@ -213,6 +219,7 @@
 </ul>
 
 <p>При этом Render-tree, а значит и то что будет отображено в окне браузера - этого элемента не содержит и будет выглядеть так:</p>
+
 <ul>
   <li>html
     <ul>
@@ -242,6 +249,7 @@
 <p>DOM-дерево это интерфейс к HTML-документу. Оно используется браузерами на первом шаге процесса рендера страницы, для определения того что необходимо отрисовать, и, программами на javascript - для модификации содержимого, структуры или же для стилизации контента страницы.</p>
 
 <p>Несмотря на сходства с остальными формами исходного HTML-кода, DOM имеет ряд отличий:</p>
+
 <ol>
   <li>Это всегда только валидный HTML</li>
   <li>Это живая модель которая может быть изменена с помощью javascript</li>
@@ -250,7 +258,6 @@
 </ol>
 
 <p><strong>Данный текст это мой вольный перевод оригинальной статьи <a href="https://ireaderinokun.com">Ire Aderinokun</a> - <a href="https://bitsofco.de/what-exactly-is-the-dom/">What, exactly, is the DOM?</a></strong></p>
-
 
     </section>
     <section class="post-info text-muted"><small>Опубликовано <strong>11 Jan 2019</strong> </small></section>

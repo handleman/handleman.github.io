@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2020-02-08T20:43:44+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Комиксы: Moi, Dragon (Я - Дракон)</title><link href="https://handleman.github.io/comics/2019/06/15/moi-dragon.html" rel="alternate" type="text/html" title="Комиксы: Moi, Dragon (Я - Дракон)" /><published>2019-06-15T13:35:59+03:00</published><updated>2019-06-15T13:35:59+03:00</updated><id>https://handleman.github.io/comics/2019/06/15/moi-dragon</id><content type="html" xml:base="https://handleman.github.io/comics/2019/06/15/moi-dragon.html">&lt;p&gt;Невероятно красивое и захватывающее мрачное фэнтези от мэтра Хуана Гименеза (Juan Gimenez). Нетривиальная для фэнтези история, полная экшена, баталий и неожиданных сюжетных решений. Детализация образов как в визуальном плане, так и в плане самой истории просто поражает глубиной, но при этом история достаточно сбалансирована и читается вполне бодро.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2020-02-08T20:57:30+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Комиксы: Moi, Dragon (Я - Дракон)</title><link href="https://handleman.github.io/comics/2019/06/15/moi-dragon.html" rel="alternate" type="text/html" title="Комиксы: Moi, Dragon (Я - Дракон)" /><published>2019-06-15T13:35:59+03:00</published><updated>2019-06-15T13:35:59+03:00</updated><id>https://handleman.github.io/comics/2019/06/15/moi-dragon</id><content type="html" xml:base="https://handleman.github.io/comics/2019/06/15/moi-dragon.html">&lt;p&gt;Невероятно красивое и захватывающее мрачное фэнтези от мэтра Хуана Гименеза (Juan Gimenez). Нетривиальная для фэнтези история, полная экшена, баталий и неожиданных сюжетных решений. Детализация образов как в визуальном плане, так и в плане самой истории просто поражает глубиной, но при этом история достаточно сбалансирована и читается вполне бодро.&lt;/p&gt;
 
 &lt;p&gt;Замок, дворцовые интриги, любовь, предательство и драконы, все это чудесным образом переплетается в абсолютно оригинальный и не банальный сюжет который сам по себе как полноценный роман, при этом подан визуальным языком великолепного художника Хуана Гименеза - в своем фирменном стиле.&lt;/p&gt;
 
@@ -445,7 +445,7 @@ span {
 
 &lt;p&gt;&lt;img src=&quot;https://bitsofco.de/content/images/2018/11/HTML-to-Render-Tree-to-Final.png&quot; alt=&quot;HTML-to-Render-Tree-to-Final&quot; title=&quot;Critical Rendering Path&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Результат выполнения первого этапа это так называемое «рендер-дерево».  Рендер-дерево это представление HTML элементов, которое должны быть отрисованы вместе со связанными с ними стилями. Для того чтобы построить такое дерево браузеру нужно две вещи:&lt;/p&gt;
+&lt;p&gt;Результат выполнения первого этапа это так называемое «рендер-дерево». Рендер-дерево это представление HTML элементов, которое должны быть отрисованы вместе со связанными с ними стилями. Для того чтобы построить такое дерево браузеру нужно две вещи:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;CSSOM - Представление стилей связанных с элементами на странице.&lt;/li&gt;
@@ -459,15 +459,16 @@ span {
 &lt;p&gt;Структурно DOM принимает вид упорядоченного дерева, потому как оно представлено в виде единственного родительского элемента от которого ответвляются все остальные “ветви”, каждая их которых имеет свои дочерние элементы “листья дерева”. В нашем случае главный родительский элемент это тег &lt;strong&gt;&amp;lt;html&amp;gt;&lt;/strong&gt;, дочерние ответвления это другие вложенные теги и элементы HTML документа, а завершают цепочку листья - контент внутри тегов.&lt;/p&gt;
 
 &lt;p&gt;Давайте рассмотрим следующий пример:&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;en&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
- &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
- &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;My first web page&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
- &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
- &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Hello, world!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;How are you?&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;My first web page&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Hello, world!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;How are you?&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -509,20 +510,22 @@ span {
 
 &lt;h3 id=&quot;dom-это-не-ваш-исходный-код&quot;&gt;DOM это не ваш исходный код&lt;/h3&gt;
 
-&lt;p&gt;Несмотря на то, что DOM строится по исходному коду HTML документа, не всегда это одно и то же.  Есть два случая, в которых DOM может отличаться от исходного HTML:&lt;/p&gt;
+&lt;p&gt;Несмотря на то, что DOM строится по исходному коду HTML документа, не всегда это одно и то же. Есть два случая, в которых DOM может отличаться от исходного HTML:&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;1. Когда HTML не валидный.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;DOM это интерфейс к валидному HTML документу. Во время его создания, браузер может откорректировать некоторые невалидные элементы.&lt;/p&gt;
 
 &lt;p&gt;Для примера рассмотрим следующий документ:&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
-        Hello, world!
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
+    Hello, world!
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;В документе отсутствуют &amp;lt;head&amp;gt; и &amp;lt;body&amp;gt;, которые нужны для того чтобы документ был валидным. Но, если мы взглянем на DOM дерево, полученное в результате, мы увидим что это было исправлено:&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;html
     &lt;ul&gt;
@@ -541,7 +544,8 @@ span {
 &lt;p&gt;Вместе с тем, что это интерфейс для отображения HTML документа, DOM также может быть модифицирован, тем самым превратившись в динамический ресурс.&lt;/p&gt;
 
 &lt;p&gt;К примеру, мы можем добавлять новые вершины в DOM дерево&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;newParagraph&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;p&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;newParagraph&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'p'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;paragraphContent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createTextNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;I'm new!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;newParagraph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;paragraphContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;newParagraph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -556,17 +560,19 @@ span {
 &lt;p&gt;Из-за того, что Render-tree заинтересовано только в том что должно быть отрисовано, оно не содержит элементов, которые визуально скрыты от пользователей.&lt;/p&gt;
 
 &lt;p&gt;Например это могут быть все элементы, для которых выставлен ‘display:none’ в CSS стилях.&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;en&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Hello, world!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;display: none;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;How are you?&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Hello, world!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;display: none;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;How are you?&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;В примере выше, DOM будет содержать элемент &amp;lt;p&amp;gt;:&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;html
     &lt;ul&gt;
@@ -582,6 +588,7 @@ span {
 &lt;/ul&gt;
 
 &lt;p&gt;При этом Render-tree, а значит и то что будет отображено в окне браузера - этого элемента не содержит и будет выглядеть так:&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;html
     &lt;ul&gt;
@@ -611,6 +618,7 @@ span {
 &lt;p&gt;DOM-дерево это интерфейс к HTML-документу. Оно используется браузерами на первом шаге процесса рендера страницы, для определения того что необходимо отрисовать, и, программами на javascript - для модификации содержимого, структуры или же для стилизации контента страницы.&lt;/p&gt;
 
 &lt;p&gt;Несмотря на сходства с остальными формами исходного HTML-кода, DOM имеет ряд отличий:&lt;/p&gt;
+
 &lt;ol&gt;
   &lt;li&gt;Это всегда только валидный HTML&lt;/li&gt;
   &lt;li&gt;Это живая модель которая может быть изменена с помощью javascript&lt;/li&gt;

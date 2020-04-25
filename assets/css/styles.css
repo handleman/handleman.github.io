@@ -128,6 +128,9 @@ ul.nav {
   .article .gist {
     box-sizing: border-box; }
 
+@media screen and (min-width: 760px) {
+  .article {
+    padding-left: 1em; } }
 @media screen and (max-width: 760px) {
   .article .gist {
     box-sizing: border-box;

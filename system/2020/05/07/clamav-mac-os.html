@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="iPprDb-KWbQjQinbLCQXoHgtFcMpLVuZKqwkWiuC9hI" />
+
+    <meta charset="utf-8" />
+    <title>Open Source антивирус clamAv на macOs и проверка по расписанию</title>
+    <link type="application/atom+xml" rel="alternate" href="https://handleman.github.io/feed.xml" title="Переводы, комиксы, разработка" />
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Open Source антивирус clamAv на macOs и проверка по расписанию | Переводы, комиксы, разработка</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Open Source антивирус clamAv на macOs и проверка по расписанию" />
+<meta property="og:locale" content="ru_RU" />
+<meta name="description" content="Даже самые известные и крутые Opensource проекты грешат своей недружелюбностью к пользователю и требуют от него различных усилий, порой требующих внушительных знаний и навыков, чтобы просто установить и заставить работать как надо. ClamAv не является исключением, а даже, скорее, гордо стоит в авангарде подобных тулзов." />
+<meta property="og:description" content="Даже самые известные и крутые Opensource проекты грешат своей недружелюбностью к пользователю и требуют от него различных усилий, порой требующих внушительных знаний и навыков, чтобы просто установить и заставить работать как надо. ClamAv не является исключением, а даже, скорее, гордо стоит в авангарде подобных тулзов." />
+<link rel="canonical" href="https://handleman.github.io/system/2020/05/07/clamav-mac-os.html" />
+<meta property="og:url" content="https://handleman.github.io/system/2020/05/07/clamav-mac-os.html" />
+<meta property="og:site_name" content="Переводы, комиксы, разработка" />
+<meta property="og:image" content="https://handleman.github.io/assets/images/articles/clamav.webp" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-07T12:48:59+03:00" />
+<script type="application/ld+json">
+{"headline":"Open Source антивирус clamAv на macOs и проверка по расписанию","dateModified":"2020-05-07T12:48:59+03:00","datePublished":"2020-05-07T12:48:59+03:00","url":"https://handleman.github.io/system/2020/05/07/clamav-mac-os.html","image":"https://handleman.github.io/assets/images/articles/clamav.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://handleman.github.io/system/2020/05/07/clamav-mac-os.html"},"description":"Даже самые известные и крутые Opensource проекты грешат своей недружелюбностью к пользователю и требуют от него различных усилий, порой требующих внушительных знаний и навыков, чтобы просто установить и заставить работать как надо. ClamAv не является исключением, а даже, скорее, гордо стоит в авангарде подобных тулзов.","@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="description" content="Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.">
+    <meta name="theme-color" content="#198BCD">
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+</head>
+
+<body>
+<div class="container" id="container" >
+    <div class="site-content">
+        <div class="aside">
+            <div class="logo-container">
+                <a href="/" class="logo animated" title="На главную">На главную</a>
+            </div>
+            <nav>
+                <ul role="menu" class="nav">
+                    
+
+<li>
+    
+        <a href="/about/" role="menuitem" class=" ">
+            Контакты
+        </a>
+    
+</li>
+
+
+                </ul>
+            </nav>
+            <aside>
+                <div class="panel tweet-panel">
+    <a class="twitter-timeline" data-tweet-limit="3" href="https://twitter.com/PHandleman" data-widget-id="536070279681040384">Твиты от @PHandleman</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+            </aside>
+        </div>
+        <main class="content">
+            <article class="article post">
+    <h1>Open Source антивирус clamAv на macOs и проверка по расписанию</h1>
+    <div class="addthis_inline_share_toolbox"></div>
+    <br>
+    <section class="post-content">
+        <p>Даже самые известные и крутые Opensource проекты грешат своей недружелюбностью к пользователю и требуют от него различных усилий, порой требующих внушительных знаний и навыков, чтобы просто установить и заставить работать как надо. ClamAv не является исключением, а даже, скорее, гордо стоит в авангарде подобных тулзов.</p>
+
+<p>В данном примере я все делал через bash shell, но, в целом — использовать можно все что угодно. Важен только принцип и конкретные файлы конфигов которые нужно будет подправить.</p>
+
+<h2 id="шаг-1-установка-и-настройка-clamav">шаг 1 установка и настройка clamAV</h2>
+
+<p>Ставлю все через   <code class="highlighter-rouge">Brew</code></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew <span class="nb">install </span>clamav
+</code></pre></div></div>
+<p><strong>Brew</strong> ложит сам clamAv в каталог  <code class="highlighter-rouge">/usr/local/etc/clamav</code>, там же лежат и конфиги. Настраиваем нужный удобный путь для логов через конфиг:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /usr/local/etc/clamav
+<span class="nv">$ </span><span class="nb">cp </span>clamd.conf.sample clamd.conf
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"LogFile /Users/handleman/log/clamd.log"</span> <span class="o">&gt;&gt;</span> clamd.conf
+</code></pre></div></div>
+<p>На этом шаге мы указали свой кастомный файл для лога, для удобства, размещенный в каталоге пользователя который в моем случае ‘/Users/handleman’. Просто чтобы не держать в голове дефолтный путь к логам или искать его каждый раз, чтобы посмотреть отчет.</p>
+
+<p>Вообще файл конфига <strong>clamd.conf</strong> очень подробно задокументирован внутри, с примерами использования. Советую заглянуть туда, потратить время, и настроить конкретно под себя. Сделать с ним можно очень много, например включить режим “защиты в реальном времени” как у “настоящих” антивирусов включив параметр <code class="highlighter-rouge">ScanOnAccess</code> в конфиге.</p>
+
+<h3 id="настройка-утилиты-freshclam">Настройка утилиты freshclam</h3>
+
+<p><strong>Freshclam</strong> нужна для апдейта базы сигнатур вирусов, работать с ней очень просто — нужно просто ее запустить дополнительных параметров передавать не нужно, только один раз настроить файл конфига - по тому же принципу что и сам clamv:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /usr/local/etc/clamav
+<span class="nv">$ </span><span class="nb">cp </span>freshclam.conf.sample freshclam.conf
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"UpdateLogFile /Users/handleman/log/freshclam.log"</span> <span class="o">&gt;&gt;</span> freshclam.conf
+</code></pre></div></div>
+
+<h3 id="скрипт-для-запуска-апдейта-сигнатур-и-сканера">Скрипт для запуска апдейта сигнатур и сканера</h3>
+
+<p>Принцип, по которому я планирую использовать <code class="highlighter-rouge">clamAV</code> у меня, следующий:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">clamd</code> запущенный в бэкграунд как процесс (daemon)</li>
+  <li>Запуск <strong>freshclam</strong> и сканера <strong>clamdscan</strong> “упакованные” в отдельный sh скрипт по расписанию, скажем, каждый понедельник ночью.</li>
+</ul>
+
+<p>Создаем скрипт, содержащий команды запуска <code class="highlighter-rouge">clamdscan</code> и <code class="highlighter-rouge">freshclam</code> (каталог не важен, в моем случае это <code class="highlighter-rouge">~/projects/scripts</code>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir</span> ~/quarantine
+<span class="nv">$ </span><span class="nb">cd</span> ~/projects/scripts
+<span class="nv">$ </span><span class="nb">touch </span>avd.sh
+<span class="nv">$ </span><span class="nb">chmod</span> +x avd.sh
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"#</span><span class="se">\!</span><span class="s2">/usr/bin/env bash </span><span class="se">\n</span><span class="s2">/usr/local/bin/freshclam &amp;&amp; /usr/local/bin/clamdscan -i --multiscan --move=/Users/handleman/quarantine ~"</span> <span class="o">&gt;&gt;</span> avd.sh
+
+</code></pre></div></div>
+<p>Таким образом мы создали каталог “карантина” <code class="highlighter-rouge">~/quarantine</code> куда мы попросили <code class="highlighter-rouge">clamAV</code> складывать зараженные файлы и указали каталог <code class="highlighter-rouge">~</code> (домашний каталог текущего пользователя) как отправную точку для скана.</p>
+
+<p>Мы создали файл <strong>avd.sh</strong>, в котором 2 команды</p>
+<ol>
+  <li><code class="highlighter-rouge">freshclam</code> - без параметров, для запуска обновления сигнатур перед каждым сканом.</li>
+  <li><code class="highlighter-rouge">сlamdscan -i --multiscan --move=/Users/handleman/quarantine ~</code> - непосредственно, сам сканер — нацеленный на каталог ‘~’ (домашний каталог активного пользователя) и, так же, попросили его складывать инфицированные файлы в каталог <code class="highlighter-rouge">~/quarantine</code> всего лишь для собственного удобства, повторюсь, поигравшись с конфигом <code class="highlighter-rouge">clamd.conf</code> можно сделать многое, например удалять инфицированные файлы автоматически.</li>
+</ol>
+
+<p>С конфигурацией <strong>clamAV</strong> покончено, впереди самое интересное:</p>
+
+<h2 id="щаг-2-запуск-сканера-clamav-по-расписанию-в-macos">Щаг 2: Запуск сканера ClamAV по расписанию в MacOs</h2>
+
+<p>Чтобы приступить, необходимо немного углубится в принципы работы процессов (демонов) в macOs.
+<a href="https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html">Официаьная документация от Aplle</a></p>
+
+<p>Если, вкратце и своими словами, то для того, чтобы запускать свои скрипты автоматически или по расписанию <strong>мы должны создать свой кастомный демон со своим кастомным конфигом</strong>, где будет все: и путь к исполняемому скрипту, и различные параметры демона и параметры запуска и расписания вызова.</p>
+
+<p>Технически это будут 2 простых действия:</p>
+
+<ol>
+  <li>Создаем два XML файла конфигурации демона с расширением.plist в специально отведенных системой местах.</li>
+  <li>“Скармливаем” эти файлы утилите <code class="highlighter-rouge">launchctl</code></li>
+</ol>
+
+<p>За работу с демонами в macOs отвечает универсальный Open Source фреймворк под названием <a href="https://www.launchd.info/"><strong>launchd</strong></a>. Регистрация созданных демонов/процессов происходит через утилиту <strong>launchctl</strong> в составе этого фреймворка.</p>
+
+<p>Важно понимать, что в рамках MacOs <strong>существуют 2 типа демонов:</strong></p>
+<ol>
+  <li><strong>Agents</strong> запускаются от лица залогиненного пользователя в момент логина.</li>
+  <li><strong>Daemons</strong> запускаются с правами root и работают в фоне независимо от того какой активный юзер залогинен и залогинен ли кто-нибудь вообще.</li>
+</ol>
+
+<p>“Агенты” и “Демоны” в свою очередь, бывают “системные”, “глобальные” и, так же, “Агент” может быть “локальным” для одного конкретного пользователя.</p>
+
+<p>Вообще эта тема, сама по себе,  интересная и дает полную свободу автоматизации системы: хоть бэкапы, хоть антивирус, хоть что угодно… и, в момент логина, и фоном независимо от пользователя вообще.</p>
+
+<p>В этом конкретном случае все очень просто - Я хочу чтобы:</p>
+
+<ol>
+  <li>При каждом моем логине запускался процесс clamd.</li>
+  <li>Раз в неделю, по понедельникам в час ночи запускался апдейт сигнатур антивируса и запуск сканера.</li>
+</ol>
+
+<p>Для этих целей нам нужен как раз <strong>“System Agent”</strong>
+для этого, в каталоге <code class="highlighter-rouge">/Library/LaunchAgents/</code> мы создадим файл <code class="highlighter-rouge">com.cisco.clamd.plist</code> (название может быть любым главное чтобы оно было уникальным и с расширением ‘.plist’)</p>
+
+<p><strong>/Library/LaunchAgents/com.cisco.clamd.plist</strong> с содержимым:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span>
+<span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>com.cisco.clamd<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Program<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>/usr/local/sbin/clamd<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;true/&gt;</span>
+    <span class="nt">&lt;key&gt;</span>KeepAlive<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;false/&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/plist&gt;</span>
+</code></pre></div></div>
+<p>В котором, мы просим фреймворк launchd запустить <strong>clamd</strong> (/usr/local/sbin/clamd) один раз при каждом логине текущего пользователя. С помощью говорящего за себя параметра <code class="highlighter-rouge">RunAtLoad</code>.</p>
+
+<p>Причем <code class="highlighter-rouge">KeepAlive</code> в состоянии <code class="highlighter-rouge">false</code>, иначе система несколько раз в минуту будет перезапускать этот процесс что скажется на производительности, чего нам, в нашей простой задаче не нужно.</p>
+
+<p>Создадим второй аналогичный конфиг, но уже для, ранее созданного, <code class="highlighter-rouge">~/scripts/avd.sh</code> и попросим <strong>launchd</strong> запускать его по расписанию. Для этого, в каталоге <code class="highlighter-rouge">~/Library/LaunchAgents/</code> мы создадим файл <code class="highlighter-rouge">com.cisco.clamdscan.plist</code></p>
+
+<p><strong>~/Library/LaunchAgents/com.cisco.clamdscan.plist</strong> с содержимым:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml <span class="nv">version</span><span class="o">=</span><span class="s2">"1.0"</span> <span class="nv">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span>?&gt;
+&lt;<span class="o">!</span>DOCTYPE plist PUBLIC <span class="s2">"-//Apple Computer//DTD PLIST 1.0//EN"</span> <span class="s2">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span><span class="o">&gt;</span>
+&lt;plist <span class="nv">version</span><span class="o">=</span><span class="s2">"1.0"</span><span class="o">&gt;</span>
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;com.cisco.clamdscan&lt;/string&gt;
+    &lt;key&gt;Program&lt;/key&gt;
+    &lt;string&gt;/Users/handleman/projects/scripts/avd.sh&lt;/string&gt;
+    &lt;key&gt;StartCalendarInterval&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;1&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;0&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;1&lt;/integer&gt;
+    &lt;/dict&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+</code></pre></div></div>
+<p>Конфиг примерно такой же, за исключением того, что нам не надо запускать наш скрипт (<code class="highlighter-rouge">/Users/handleman/projects/scripts/avd.sh</code>) во время старта системы, а нужно запускать по расписанию раз в неделю согласно указанному параметру <code class="highlighter-rouge">StartCalendarInterval</code> и его параметрам</p>
+
+<h2 id="последний-штрих">Последний штрих</h2>
+
+<p>Для того чтобы запустить демоны не дожидаясь перезагрузки системы, загрузим их в память с помощью утилиты <code class="highlighter-rouge">launchctl</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>launchctl load /Library/LaunchAgents/com.cisco.clamd.plist
+<span class="nv">$ </span>launchctl load ~/Library/LaunchAgents/com.cisco.clamdscan.plist
+<span class="nv">$ </span>launchctl start com.cisco.clamd
+
+</code></pre></div></div>
+<p>Вот и все! Теперь у вас в фоне работает антивирус ClamAv автоматически сканирующий ваш каталог пользователя раз в неделю, и пишет в ваш лог файл, откуда вы можете наблюдать всю активность сканера, так же инфицированные файлы отправляются в карантин <code class="highlighter-rouge">~/quarantine</code>.</p>
+
+<p>Вообще, покопавшись, в конфигах, теоретически, можно сделать еще много чего, например нотификации, но для моих нужд данного сетапа волне достаточно.</p>
+
+    </section>
+    <section class="post-info text-muted"><small><strong>Опубликовано : 07 May 2020</strong> </small></section>
+</article>
+<hr />
+<div class="post-comments" id="comments" aria-label="User comments">
+    <div class="  simple-comments ">
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = "https://handleman.github.io/system/2020/05/07/clamav-mac-os.html";
+                this.page.identifier = "/system/2020/05/07/clamav-mac-os";
+            };
+
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://phandleman.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</div>
+
+
+        </main>
+        <footer class="footer">
+            <nav>
+                <ul class="nav" role="menu">
+                    <a href="/"  title="На главную" role="menuitem">На главную</a>
+                
+
+<li>
+    
+        <a href="/about/" role="menuitem" class=" ">
+            Контакты
+        </a>
+    
+</li>
+
+                </ul>
+            </nav>
+            <button class="scroll-top" type="button" onclick="window.scrollTop();"> <span class="icon"></span></button>
+        </footer>
+
+    </div>
+</div>
+
+<script src="/assets/js/page.js"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5304a714568001ec"></script>
+</body>
+</html>

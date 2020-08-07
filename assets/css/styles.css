@@ -361,6 +361,10 @@ a {
     background: -webkit-linear-gradient(top, #33a4e6 0%, #fdff89 100%);
     background: linear-gradient(to bottom, #33a4e6 0%, #fdff89 100%); }
 
+.post-info .icon {
+  max-height: fit-content;
+  vertical-align: middle; }
+
 .post-comments {
   margin-top: 2em; }
 

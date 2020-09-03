@@ -70,9 +70,14 @@ ul.nav {
   grid-area: aside; }
   .aside .panel {
     margin-top: 3em; }
+  .aside .menuitem {
+    font-weight: bold; }
   .aside ul.nav li {
     display: block;
-    text-align: center; }
+    text-align: center;
+    font-weight: bold; }
+    .aside ul.nav li a {
+      text-decoration: none; }
   .aside ul.nav a {
     font-size: 1.25em; }
 

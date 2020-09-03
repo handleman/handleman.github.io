@@ -18,9 +18,9 @@ body {
 hr {
   display: block;
   border: 0;
-  height: 2px;
-  background-color: #bebebe;
-  margin-top: 0.5em;
+  height: 3px;
+  background-color: #198bcd;
+  margin-top: 1em;
   margin-bottom: 1em; }
 
 .headings, h1, h2, h3 {
@@ -107,6 +107,10 @@ ul.nav {
 .article {
   box-sizing: border-box;
   max-width: 805px; }
+  .article h1, .article h2 {
+    color: #198bcd; }
+  .article h3 {
+    color: #FF9E35; }
   .article img {
     display: inline-block;
     max-width: 100%; }

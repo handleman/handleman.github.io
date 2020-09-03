@@ -223,21 +223,25 @@ a {
   color: #198bcd;
   text-decoration: none;
   transition: color 0.2s; }
-  .link-like:hover, .footer .scroll-top:hover, .pagination .next:hover, .pagination .previous:hover, .link-like:focus, .footer .scroll-top:focus, .pagination .next:focus, .pagination .previous:focus, .link-like:active, .footer .scroll-top:active, .pagination .next:active, .pagination .previous:active,
+  .link-like:hover, .footer .scroll-top:hover, .pagination .next:hover, .pagination .previous:hover, .link-like:focus, .footer .scroll-top:focus, .pagination .next:focus, .pagination .previous:focus,
   a:hover,
-  a:focus,
-  a:active {
-    color: #33a4e6;
+  a:focus {
+    color: #FF9E35;
     text-decoration: underline; }
+  .link-like:active, .footer .scroll-top:active, .pagination .next:active, .pagination .previous:active,
+  a:active {
+    color: #ff8602; }
   .link-like:visited, .footer .scroll-top:visited, .pagination .next:visited, .pagination .previous:visited,
   a:visited {
     color: #198bcd; }
-    .link-like:visited:hover, .footer .scroll-top:visited:hover, .pagination .next:visited:hover, .pagination .previous:visited:hover, .link-like:visited:focus, .footer .scroll-top:visited:focus, .pagination .next:visited:focus, .pagination .previous:visited:focus, .link-like:visited:active, .footer .scroll-top:visited:active, .pagination .next:visited:active, .pagination .previous:visited:active,
+    .link-like:visited:hover, .footer .scroll-top:visited:hover, .pagination .next:visited:hover, .pagination .previous:visited:hover, .link-like:visited:focus, .footer .scroll-top:visited:focus, .pagination .next:visited:focus, .pagination .previous:visited:focus,
     a:visited:hover,
-    a:visited:focus,
-    a:visited:active {
-      color: #33a4e6;
+    a:visited:focus {
+      color: #FF9E35;
       text-decoration: underline; }
+    .link-like:visited:active, .footer .scroll-top:visited:active, .pagination .next:visited:active, .pagination .previous:visited:active,
+    a:visited:active {
+      color: #ff8602; }
 
 .annotation {
   display: block;
@@ -359,13 +363,26 @@ a {
     opacity: 0.9;
     margin-left: -1.8em;
     background: #33a4e6;
-    background: -moz-linear-gradient(top, #33a4e6 0%, #fdff89 100%);
-    background: -webkit-linear-gradient(top, #33a4e6 0%, #fdff89 100%);
-    background: linear-gradient(to bottom, #33a4e6 0%, #fdff89 100%); }
+    background: -moz-linear-gradient(top, #33a4e6 0%, #FF9E35 100%);
+    background: -webkit-linear-gradient(top, #33a4e6 0%, #FF9E35 100%);
+    background: linear-gradient(to bottom, #33a4e6 0%, #FF9E35 100%); }
 
-.post-info .icon {
+.post-info .item {
+  margin-right: 2em; }
+.post-info .icon,
+.post-info svg {
   max-height: fit-content;
   vertical-align: middle; }
+.post-info .like-button {
+  transition: fill 0.3s; }
+  .post-info .like-button:not(.liked) {
+    cursor: pointer; }
+  .post-info .like-button:hover {
+    fill: #198bcd; }
+  .post-info .like-button:active {
+    fill: #136ca0; }
+  .post-info .like-button.liked {
+    fill: #FF9E35; }
 
 .post-comments {
   margin-top: 2em; }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2020-09-16T22:35:30+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Open Source антивирус clamAv на macOs и проверка по расписанию</title><link href="https://handleman.github.io/system/2020/05/07/clamav-mac-os.html" rel="alternate" type="text/html" title="Open Source антивирус clamAv на macOs и проверка по расписанию" /><published>2020-05-07T12:48:59+03:00</published><updated>2020-05-07T12:48:59+03:00</updated><id>https://handleman.github.io/system/2020/05/07/clamav-mac-os</id><content type="html" xml:base="https://handleman.github.io/system/2020/05/07/clamav-mac-os.html">&lt;p&gt;Даже самые известные и крутые Opensource проекты грешат своей недружелюбностью к пользователю и требуют от него различных усилий, порой требующих внушительных знаний и навыков, чтобы просто установить и заставить работать как надо. ClamAv не является исключением, а даже, скорее, гордо стоит в авангарде подобных тулзов.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ru_RU"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://handleman.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://handleman.github.io/" rel="alternate" type="text/html" hreflang="ru_RU" /><updated>2020-09-16T22:37:53+03:00</updated><id>https://handleman.github.io/</id><title type="html">Переводы, комиксы, разработка</title><subtitle>Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.</subtitle><entry><title type="html">Open Source антивирус clamAv на macOs и проверка по расписанию</title><link href="https://handleman.github.io/system/2020/05/07/clamav-mac-os.html" rel="alternate" type="text/html" title="Open Source антивирус clamAv на macOs и проверка по расписанию" /><published>2020-05-07T12:48:59+03:00</published><updated>2020-05-07T12:48:59+03:00</updated><id>https://handleman.github.io/system/2020/05/07/clamav-mac-os</id><content type="html" xml:base="https://handleman.github.io/system/2020/05/07/clamav-mac-os.html">&lt;p&gt;Даже самые известные и крутые Opensource проекты грешат своей недружелюбностью к пользователю и требуют от него различных усилий, порой требующих внушительных знаний и навыков, чтобы просто установить и заставить работать как надо. ClamAv не является исключением, а даже, скорее, гордо стоит в авангарде подобных тулзов.&lt;/p&gt;
 
 &lt;p&gt;В данном примере я все делал через bash shell, но, в целом — использовать можно все что угодно. Важен только принцип и конкретные файлы конфигов которые нужно будет подправить.&lt;/p&gt;
 
@@ -114,25 +114,25 @@
 
 &lt;p&gt;&lt;strong&gt;~/Library/LaunchAgents/com.cisco.clamdscan.plist&lt;/strong&gt; с содержимым:&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?xml &lt;span class=&quot;nv&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;encoding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;UTF-8&quot;&lt;/span&gt;?&amp;gt;
-&amp;lt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;DOCTYPE plist PUBLIC &lt;span class=&quot;s2&quot;&gt;&quot;-//Apple Computer//DTD PLIST 1.0//EN&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-&amp;lt;plist &lt;span class=&quot;nv&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-&amp;lt;dict&amp;gt;
-    &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt;
-    &amp;lt;string&amp;gt;com.cisco.clamdscan&amp;lt;/string&amp;gt;
-    &amp;lt;key&amp;gt;Program&amp;lt;/key&amp;gt;
-    &amp;lt;string&amp;gt;/Users/handleman/projects/scripts/avd.sh&amp;lt;/string&amp;gt;
-    &amp;lt;key&amp;gt;StartCalendarInterval&amp;lt;/key&amp;gt;
-    &amp;lt;dict&amp;gt;
-        &amp;lt;key&amp;gt;Hour&amp;lt;/key&amp;gt;
-        &amp;lt;integer&amp;gt;1&amp;lt;/integer&amp;gt;
-        &amp;lt;key&amp;gt;Minute&amp;lt;/key&amp;gt;
-        &amp;lt;integer&amp;gt;0&amp;lt;/integer&amp;gt;
-        &amp;lt;key&amp;gt;Weekday&amp;lt;/key&amp;gt;
-        &amp;lt;integer&amp;gt;1&amp;lt;/integer&amp;gt;
-    &amp;lt;/dict&amp;gt;
-&amp;lt;/dict&amp;gt;
-&amp;lt;/plist&amp;gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE plist PUBLIC &quot;-//Apple Computer//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;plist&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;version=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Label&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;com.cisco.clamdscan&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Program&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;/Users/handleman/projects/scripts/avd.sh&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;StartCalendarInterval&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Hour&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;integer&amp;gt;&lt;/span&gt;1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/integer&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Minute&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;integer&amp;gt;&lt;/span&gt;0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/integer&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Weekday&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;integer&amp;gt;&lt;/span&gt;1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/integer&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plist&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Конфиг примерно такой же, за исключением того, что нам не надо запускать наш скрипт (&lt;code class=&quot;highlighter-rouge&quot;&gt;/Users/handleman/projects/scripts/avd.sh&lt;/code&gt;) во время старта системы, а нужно запускать по расписанию раз в неделю согласно указанному параметру &lt;code class=&quot;highlighter-rouge&quot;&gt;StartCalendarInterval&lt;/code&gt; и его параметрам&lt;/p&gt;
 

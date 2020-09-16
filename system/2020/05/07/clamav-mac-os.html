@@ -183,25 +183,25 @@
 
 <p><strong>~/Library/LaunchAgents/com.cisco.clamdscan.plist</strong> с содержимым:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml <span class="nv">version</span><span class="o">=</span><span class="s2">"1.0"</span> <span class="nv">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span>?&gt;
-&lt;<span class="o">!</span>DOCTYPE plist PUBLIC <span class="s2">"-//Apple Computer//DTD PLIST 1.0//EN"</span> <span class="s2">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span><span class="o">&gt;</span>
-&lt;plist <span class="nv">version</span><span class="o">=</span><span class="s2">"1.0"</span><span class="o">&gt;</span>
-&lt;dict&gt;
-    &lt;key&gt;Label&lt;/key&gt;
-    &lt;string&gt;com.cisco.clamdscan&lt;/string&gt;
-    &lt;key&gt;Program&lt;/key&gt;
-    &lt;string&gt;/Users/handleman/projects/scripts/avd.sh&lt;/string&gt;
-    &lt;key&gt;StartCalendarInterval&lt;/key&gt;
-    &lt;dict&gt;
-        &lt;key&gt;Hour&lt;/key&gt;
-        &lt;integer&gt;1&lt;/integer&gt;
-        &lt;key&gt;Minute&lt;/key&gt;
-        &lt;integer&gt;0&lt;/integer&gt;
-        &lt;key&gt;Weekday&lt;/key&gt;
-        &lt;integer&gt;1&lt;/integer&gt;
-    &lt;/dict&gt;
-&lt;/dict&gt;
-&lt;/plist&gt;
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span>
+<span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>com.cisco.clamdscan<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Program<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>/Users/handleman/projects/scripts/avd.sh<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>StartCalendarInterval<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;dict&gt;</span>
+        <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+        <span class="nt">&lt;integer&gt;</span>1<span class="nt">&lt;/integer&gt;</span>
+        <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+        <span class="nt">&lt;integer&gt;</span>0<span class="nt">&lt;/integer&gt;</span>
+        <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+        <span class="nt">&lt;integer&gt;</span>1<span class="nt">&lt;/integer&gt;</span>
+    <span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/plist&gt;</span>
 </code></pre></div></div>
 <p>Конфиг примерно такой же, за исключением того, что нам не надо запускать наш скрипт (<code class="highlighter-rouge">/Users/handleman/projects/scripts/avd.sh</code>) во время старта системы, а нужно запускать по расписанию раз в неделю согласно указанному параметру <code class="highlighter-rouge">StartCalendarInterval</code> и его параметрам</p>
 

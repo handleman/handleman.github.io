@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="iPprDb-KWbQjQinbLCQXoHgtFcMpLVuZKqwkWiuC9hI" />
+
+    <meta charset="utf-8" />
+    <title>Python: Бэкап в B2 Cloud Storage с помощью Python</title>
+    <link type="application/atom+xml" rel="alternate" href="https://handleman.github.io/feed.xml" title="Переводы, комиксы, разработка" />
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Python: Бэкап в B2 Cloud Storage с помощью Python | Переводы, комиксы, разработка</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Python: Бэкап в B2 Cloud Storage с помощью Python" />
+<meta property="og:locale" content="ru_RU" />
+<meta name="description" content="В этом посте мы напишем и разберем скрипт на Python для бэкапа любых файлов (любого размера и количества) в облачное объектное хранилище “B2 Cloud Storage” от компании Backblaze. Почему именно “B2”? - Потому-что он дешевле раза в четыре популярного S3, ставшего уже для нас стандартом “Де-факто”. По своим возможностям и удобству использования B2 конечно уступает, но, для простого бэкапа - этого более чем достаточно." />
+<meta property="og:description" content="В этом посте мы напишем и разберем скрипт на Python для бэкапа любых файлов (любого размера и количества) в облачное объектное хранилище “B2 Cloud Storage” от компании Backblaze. Почему именно “B2”? - Потому-что он дешевле раза в четыре популярного S3, ставшего уже для нас стандартом “Де-факто”. По своим возможностям и удобству использования B2 конечно уступает, но, для простого бэкапа - этого более чем достаточно." />
+<link rel="canonical" href="https://handleman.github.io/python/2020/09/26/python-backup-to-b2-cloud.html" />
+<meta property="og:url" content="https://handleman.github.io/python/2020/09/26/python-backup-to-b2-cloud.html" />
+<meta property="og:site_name" content="Переводы, комиксы, разработка" />
+<meta property="og:image" content="https://handleman.github.io/assets/images/articles/backblaze.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-26T12:48:59+03:00" />
+<script type="application/ld+json">
+{"headline":"Python: Бэкап в B2 Cloud Storage с помощью Python","dateModified":"2020-09-26T12:48:59+03:00","datePublished":"2020-09-26T12:48:59+03:00","url":"https://handleman.github.io/python/2020/09/26/python-backup-to-b2-cloud.html","image":"https://handleman.github.io/assets/images/articles/backblaze.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://handleman.github.io/python/2020/09/26/python-backup-to-b2-cloud.html"},"description":"В этом посте мы напишем и разберем скрипт на Python для бэкапа любых файлов (любого размера и количества) в облачное объектное хранилище “B2 Cloud Storage” от компании Backblaze. Почему именно “B2”? - Потому-что он дешевле раза в четыре популярного S3, ставшего уже для нас стандартом “Де-факто”. По своим возможностям и удобству использования B2 конечно уступает, но, для простого бэкапа - этого более чем достаточно.","@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="description" content="Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.">
+    <meta name="theme-color" content="#198BCD">
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+</head>
+
+<body>
+<div class="container" id="container" >
+    <div class="site-content">
+        <div class="aside">
+            <div class="logo-container">
+                <a href="/" class="logo animated" title="На главную">На главную</a>
+            </div>
+            <nav>
+                <ul role="menu" class="nav">
+                    
+
+<li>
+    
+        <a href="/about/" role="menuitem" class=" ">
+            Контакты
+        </a>
+    
+</li>
+
+
+                </ul>
+            </nav>
+            <aside>
+                <div class="panel tweet-panel">
+    <a class="twitter-timeline" data-tweet-limit="3" href="https://twitter.com/PHandleman" data-widget-id="536070279681040384">Твиты от @PHandleman</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+            </aside>
+        </div>
+        <main class="content">
+            <article class="article post">
+    <h1>Python: Бэкап в B2 Cloud Storage с помощью Python</h1>
+    <div class="addthis_inline_share_toolbox"></div>
+    <br>
+    <section class="post-content">
+        <p>В этом посте мы напишем и разберем скрипт на Python для бэкапа любых файлов (любого размера и количества) в облачное объектное хранилище “B2 Cloud Storage” от компании Backblaze. Почему именно “B2”? - Потому-что он дешевле раза в четыре популярного S3, ставшего уже для нас стандартом “Де-факто”. По своим возможностям и удобству использования B2 конечно уступает, но, для простого бэкапа - этого более чем достаточно.</p>
+
+<p>Сравнить цены с другими популярными решениями можно <a href="https://www.backblaze.com/b2/cloud-storage-pricing.html">тут</a></p>
+
+<h2 id="планирование">Планирование</h2>
+
+<p>В качестве среды выполнения задачи будем использовать Python 3.8 (актуальный на момент написания).</p>
+
+<p>Предположим, что в итоге мы хотим видеть скрипт, консольную утилиту, которой мы будем передавать наши “креды” для B2 и путь к директории которую мы хотим загрузить.</p>
+
+<p>Например:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 b2_backup.py <span class="nt">-k</span> &lt;KEY_ID&gt; <span class="nt">-a</span> &lt;APP_KEY&gt; &lt;PATH_TO_FILES&gt;
+</code></pre></div></div>
+
+<h2 id="подготовка">Подготовка</h2>
+
+<p>Для того, чтобы начать, нам нужно зарегистрироваться <a href="https://www.backblaze.com/b2/sign-up.html">на самом сервисе</a>, затем <a href="https://www.backblaze.com/b2/docs/quick_account.html">активировать B2 Cloud Storage</a>, подключить платежную карточку, создать “бакет” и <strong>настроить доступ к нему</strong>, получив в итоге два ключа:</p>
+
+<ol>
+  <li><strong>“keyID”</strong> - привязанный к конкретному бакету id-шник</li>
+  <li><strong>“Application key”</strong> - тоже привязанный к конкретному бакету ключ, по которому мы и будем коннектиться к файловому хранилищу.</li>
+</ol>
+
+<p>Подробно расписывать процесс регистрации не нужно, там все достаточно просто, единственное, акцентирую внимание на том, что <strong>необходимо добавлять новые ключи</strong> для каждого созданного бакета, а не использовать общий “Master Application Key”.</p>
+
+<p><img src="/assets/images/articles/b2_backup/app_key.jpg" alt="registering access keys for B2 Cloud" /></p>
+
+<h2 id="принципы-работы-с-b2-cloud-service-api">Принципы работы с B2 Cloud Service API</h2>
+
+<p>Работать с B2 мы будем через https запросы к нативному API сервиса.</p>
+
+<p>Главное отличие нативного API B2 от того же S3 в том, что, в целях экономии, они не используют балансировку трафика на стороне сервера. Вместо автоматической балансировки и единого API URL для всех операций, они построили апишку согласно понятию “Архитектура Контрактов” (<a href="https://www.backblaze.com/blog/design-thinking-b2-apis-the-hidden-costs-of-s3-compatibility/">Contract Architecture</a>)</p>
+
+<p>Это значит что вместо единого URL для всех операций (авторизация, добавить/удалить файл, список файлов), API разбито на множетсов отдельных URL, <strong>по одному для каждой операции</strong>. Что, в принципе имеет смысл, но требует немного больше операций в коде клиента, который мы сейчас и напишем.</p>
+
+<p>И так, разобраавшись с <a href="https://www.backblaze.com/b2/docs/integration_checklist.html">документацией</a>, приходим к выводу, что для нашей простой задачи - “загрузить указанный каталог в облако” нам нужно использовать всего 3 операции:</p>
+
+<ol>
+  <li><strong>Авторизация на сервисе</strong> (<a href="https://www.backblaze.com/b2/docs/b2_authorize_account.html">b2_authorize_account</a>). API URL: <code class="highlighter-rouge">https://api.backblazeb2.com/b2api/v2/b2_authorize_account</code></li>
+  <li><strong>Запрос адреса сервера загрузки</strong> (<a href="https://www.backblaze.com/b2/docs/b2_get_upload_url.html">b2_get_upload_url</a>). API URL: <code class="highlighter-rouge">https://&lt;AUTHORIZED_API_URL&gt;/b2api/v2/b2_get_upload_url</code></li>
+  <li><strong>Загрзука файла</strong> (<a href="https://www.backblaze.com/b2/docs/b2_upload_file.html">b2_upload_file</a>). API URL: <code class="highlighter-rouge">https://&lt;UPOLOAD_URL&gt;/b2api/v2/b2_upload_file</code></li>
+</ol>
+
+<p>Определившись с тем что конкретно нам нужно делать, мы готовы описать каждую операцию в Python.</p>
+
+<h2 id="шаг-1-авторизация-на-сервисе">Шаг 1. Авторизация на сервисе</h2>
+
+<p>Первый шаг, на котором мы “скармливаем” полученные ранее <strong>“keyID”</strong> и <strong>“Application key”</strong> для того чтобы получить токен и все необходимое для остальных операций.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">urlopen</span>
+
+<span class="k">def</span> <span class="nf">b2_authorize</span><span class="p">(</span><span class="n">applicationKeyId</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">applicationKeyValue</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">id_and_key</span> <span class="o">=</span> <span class="n">f</span><span class="s">'{applicationKeyId}:{applicationKeyValue}'</span>
+    <span class="n">id_and_key_base64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span>
+        <span class="n">id_and_key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="n">basic_auth_string</span> <span class="o">=</span> <span class="n">f</span><span class="s">'Basic {id_and_key_base64}'</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Authorization'</span><span class="p">:</span> <span class="n">basic_auth_string</span><span class="p">}</span>
+    <span class="n">b2_auth_url</span> <span class="o">=</span> <span class="s">'https://api.backblazeb2.com/b2api/v2/b2_authorize_account'</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">b2_auth_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+        <span class="n">auth</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">auth</span>
+</code></pre></div></div>
+<p>Описанная функция принимает 2 параметра: <code class="highlighter-rouge">applicationKeyId</code> и <code class="highlighter-rouge">applicationKeyValue</code>, в которые мы передадим <strong>“keyID”</strong> и <strong>“Application key”</strong> соответственно.  Функция возвращает объект <code class="highlighter-rouge">auth</code> который содержит в себе токен, API URL для остальных операций и другую вспомогательную информацию.</p>
+
+<p>Для построения запроса мы используем <code class="highlighter-rouge">urllib.request</code> стандартно по дефолту без каких либо специфических настроек и заголовков, за исключением <code class="highlighter-rouge">'Authorization'</code> заголовка.</p>
+
+<p><em>Обратите внимание:</em></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">id_and_key_base64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span>
+        <span class="n">id_and_key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>В Python начиная с версии 3, модуль <code class="highlighter-rouge">base64</code> не работает с ASCII строками, поэтому для шифрования приходится строку с ключами вначале переводить в кодировку ‘UTF-8’, а затем - обратно.</p>
+
+<h2 id="шаг-2-адрес-свободного-сервера-и-токен-для-него">Шаг 2. Адрес свободного сервера и токен для него</h2>
+
+<p>Эта операция ключевая для, упомянутой выше, “Архитектуры Контрактов” (<a href="https://www.backblaze.com/blog/design-thinking-b2-apis-the-hidden-costs-of-s3-compatibility/">Contract Architecture</a>) - на этом шаге мы просим у B2 Cloud Service дать нам <strong>адрес свободного на данный момент сервера</strong> на который мы будем грузить свои файлы. Таким образом ответственность за балансировку переносится на сторону клиента.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">urlopen</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">def</span> <span class="nf">b2_get_upload_url</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">authToken</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bucketId</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">b2_get_upload_url</span> <span class="o">=</span> <span class="n">f</span><span class="s">'{apiUrl}/b2api/v2/b2_get_upload_url'</span>
+    <span class="n">get_url_body</span> <span class="o">=</span> <span class="p">{</span><span class="s">'bucketId'</span><span class="p">:</span> <span class="n">bucketId</span><span class="p">}</span>
+    <span class="n">get_url_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Authorization'</span><span class="p">:</span> <span class="n">authToken</span><span class="p">}</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">b2_get_upload_url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="n">get_url_body</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">get_url_headers</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+        <span class="n">uploadData</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">uploadData</span>
+</code></pre></div></div>
+<p>Описанная функция принимает три параметра:</p>
+<ol>
+  <li><code class="highlighter-rouge">apiURl</code> - API URL привязанный к нашей авторизованной сессии.</li>
+  <li><code class="highlighter-rouge">authToken</code> - Токен для второго уровня авторизации.</li>
+  <li><code class="highlighter-rouge">buckedId</code> - Внутренний ID вашего бакета в который мы авторизовались.</li>
+</ol>
+
+<p>Все эти три параметра у нас уже есть - мы получили их на первом шаге авторизации. Все эти данные находятся в <code class="highlighter-rouge">auth</code> объекте.</p>
+
+<p>Данная функция вернет нам условный <code class="highlighter-rouge">uploadData</code> объект, в котором уже все что нужно для того, чтобы перейти непосредственно к загрузке файлов - т.е. <code class="highlighter-rouge">uploadUrl</code> и новый <code class="highlighter-rouge">authorizationToken</code>.</p>
+
+<h2 id="шаг-3-загрузка-файла">Шаг 3. Загрузка файла</h2>
+
+<p>Самая большая и сложная функция, которая принимает параметр <code class="highlighter-rouge">filePathName</code> - путь к файлу, и собрав все нужные данные и оформив нужные заголовки - отправляет указанный файл на сервер.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">urlopen</span>
+<span class="kn">from</span> <span class="nn">urllib.error</span> <span class="kn">import</span> <span class="n">HTTPError</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+
+<span class="k">def</span> <span class="nf">b2_upload_file_callback</span><span class="p">(</span><span class="n">filePathName</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">global</span> <span class="n">uploadUrl</span><span class="p">,</span> <span class="n">authTokenUpload</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'[ Upload in progress ]: {filePathName}'</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">'...'</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">allowed_codes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">503</span><span class="p">]</span>
+    <span class="n">content_type</span> <span class="o">=</span> <span class="s">'b2/x-auto'</span>
+    <span class="n">file_path_name_encoded</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">filePathName</span><span class="p">)</span>
+
+    <span class="c1"># we trim backslash in order to create right directories structure on B2 Cloud
+</span>    <span class="k">if</span> <span class="n">file_path_name_encoded</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'/'</span><span class="p">:</span>
+        <span class="n">file_path_name_encoded</span> <span class="o">=</span> <span class="n">file_path_name_encoded</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filePathName</span><span class="p">,</span> <span class="s">'br'</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+        <span class="n">file_data</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">file_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">file_data</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'Authorization'</span><span class="p">:</span> <span class="n">authTokenUpload</span><span class="p">,</span>
+        <span class="s">'X-Bz-File-Name'</span><span class="p">:</span> <span class="n">file_path_name_encoded</span><span class="p">,</span>
+        <span class="s">'Content-Type'</span><span class="p">:</span> <span class="n">content_type</span><span class="p">,</span>
+        <span class="s">'X-Bz-Content-Sha1'</span><span class="p">:</span> <span class="n">file_hash</span>
+    <span class="p">}</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">uploadUrl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">file_data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'&lt;- [DONE] '</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'&lt;- [FAILED] '</span><span class="p">)</span>
+        <span class="c1"># B2 Cloud sends 500,503 errors when need to re-establish upload connection (upload url and authenticationToken could be changed)
+</span>        <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">code</span> <span class="ow">in</span> <span class="n">allowed_codes</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'[ 503 error, reiastablishing connection... ]'</span><span class="p">)</span>
+            <span class="n">uploadSettings</span> <span class="o">=</span> <span class="n">b2_get_upload_url</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">,</span> <span class="n">authToken</span><span class="p">,</span> <span class="n">bucketId</span><span class="p">)</span>
+            <span class="n">uploadUrl</span> <span class="o">=</span> <span class="n">uploadSettings</span><span class="p">[</span><span class="s">'uploadUrl'</span><span class="p">]</span>
+            <span class="n">authTokenUpload</span> <span class="o">=</span> <span class="n">uploadSettings</span><span class="p">[</span><span class="s">'authorizationToken'</span><span class="p">]</span>
+            <span class="n">b2_upload_file_callback</span><span class="p">(</span><span class="n">filePathName</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Главным отличием этой функции от остальных является наличие “try-except” блока.</p>
+
+<p>В этом блоке мы проверяем код ошибки и если это 500 или 503, то мы <strong>должны повторить шаг  2 - “Запросить адрес сервера загрузки”</strong>,  обновить  <code class="highlighter-rouge">uploadUrl</code> и  токен для <code class="highlighter-rouge">authTokenUpload</code> после чего повторить попытку его загрузки.</p>
+
+<p>При работе с <strong>b2_upload_file</strong> API код ошибки 500 или 503 зарезервированы как сигнал разработчику  о том, что необходимо обратится за новым токеном и получить доступ к другому серверу, т.к. текущий может быть перегружен или заполнен. Таким образом и осуществляется “ручная балансировка” на стороне клиента. (<a href="https://www.backblaze.com/blog/b2-503-500-server-error/">см. доку</a>)</p>
+
+<p>Мы поместили некоторые важные данные в глобальные переменные, например для адреса сервера загрузки и токена:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">global</span> <span class="n">uploadUrl</span><span class="p">,</span> <span class="n">authTokenUpload</span>
+</code></pre></div></div>
+<p>И, после их обновления, вызываем эту же функцию рекурсивно, дабы полностью повторить весь этап загрузки.</p>
+
+<p>Помиомо прочего, перед отправкой файла, формируем специфические для API “b2_upload_file” заголовки запроса:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'Authorization'</span><span class="p">:</span> <span class="n">authTokenUpload</span><span class="p">,</span>
+        <span class="s">'X-Bz-File-Name'</span><span class="p">:</span> <span class="n">file_path_name_encoded</span><span class="p">,</span>
+        <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'b2/x-auto'</span><span class="p">,</span>
+        <span class="s">'X-Bz-Content-Sha1'</span><span class="p">:</span> <span class="n">file_hash</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>Где:</p>
+<ol>
+  <li><code class="highlighter-rouge">Authorization</code> - Токен полученный на предыдущем шаге <code class="highlighter-rouge">b2_get_upload_url()</code></li>
+  <li><code class="highlighter-rouge">X-Bz-File-Name</code> - Имя файла, под которым мы хотим хранить данные.</li>
+  <li><code class="highlighter-rouge">Content-Type</code> - Мы указали как <code class="highlighter-rouge">'b2/x-auto'</code>, для того чтобы B2 определил тип файла автоматически (с чем он, кстати, неплохо справляется).</li>
+  <li><code class="highlighter-rouge">X-Bz-Content-Sha1</code> - обязательный для B2 заголовок в который мы передаем хеш файла, для того чтобы B2 имело возможность проверить целостность файла после загрузки.</li>
+</ol>
+
+<p>Сам файл мы достаем из файловой системы  стандартной в Python процедурой <code class="highlighter-rouge">open()</code> и содержимое передаем в теле запроса для <code class="highlighter-rouge">urllib.request.Request()</code> метода.</p>
+
+<h2 id="дополнительная-работа">Дополнительная работа</h2>
+
+<p>Мы описали кодом все три операции, которые нам нужны для работы с B2 Cloud Storage, теперь нам осталось добавить несколько вспомогательных функций.</p>
+
+<h3 id="аргументы-командной-строки">Аргументы командной строки</h3>
+<p>Для того, чтобы мы могли передавать в наш скрипт аргументы из командной строки необходимо их описать с помощью либы <code class="highlighter-rouge">argparse</code> (<a href="https://docs.python.org/3.8/library/argparse.html">см. доки</a>)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="k">def</span> <span class="nf">init_argparse</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s">'''Makes copy of your files to given B2 folder.
+            You need to have "keyID" and "App Key" to authorize in B2 services.
+            KeyId and App Key can be found in B2 Cloud Storage client dashboard
+            '''</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s">"-v"</span><span class="p">,</span> <span class="s">"--version"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">"version"</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="n">f</span><span class="s">"{parser.prog} version 1.0.0"</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s">'directory'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">"Path to directory you want to upload to B2 cloud"</span><span class="p">)</span>
+    <span class="n">requiredNamed</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s">'required named arguments'</span><span class="p">)</span>
+    <span class="n">requiredNamed</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s">'-k'</span><span class="p">,</span> <span class="s">'--key-id'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'B2 "keyID" value (is given to you when you create B2 bucket and access "App key" for it)'</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span>
+    <span class="p">)</span>
+    <span class="n">requiredNamed</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s">'-a'</span><span class="p">,</span> <span class="s">'--app-key'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'B2 "Application Key" value (is given to you when you create B2 bucket and access "App key" for it)'</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span>
+</code></pre></div></div>
+<p>Таким образом, помимо самих аргументов, мы получим  еще “help” страницу с подробным описанием “из коробки”, как в настоящем консольном приложении.</p>
+
+<h3 id="доступ--к-файлам">Доступ  к файлам</h3>
+
+<p>Согласно плану, пользователь должен нам передать путь к директории которую он/она хочет загрузить, и мы должны загрузить все содержимое независимо от глубины вложенности и количества файлов.</p>
+
+<p>При условии, что нам неизвестно количество файлов, необходимо продумать максимально эффективное решение.</p>
+
+<p>Очевидный подход - составить список всех файлов в данной директории и потом циклически запускать для каждого загрузку - затратно по памяти, т.к. список может быть на сотни тысяч позиций. Поэтому в дело вступают структуры данных и метод <code class="highlighter-rouge">os.walk()</code> который возвращает iterable структуру для содержимого указанного каталога. Извлекаем из полученного iterable данные по порядку и передаем их в коллбек <code class="highlighter-rouge">b2_upload_file_callback()</code> из третьего  шага (операции).</p>
+
+<p>Опишем функцию:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">applyForFile</span><span class="p">(</span><span class="n">filesPath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="bp">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.DS_Store'</span><span class="p">,</span> <span class="s">'.Trashes'</span><span class="p">,</span> <span class="s">'.fseventsd'</span><span class="p">,</span>
+                <span class="s">'.Spotlight-V100'</span><span class="p">,</span> <span class="s">'desktop.ini'</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">directories</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">filesPath</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">:</span>
+                <span class="n">full_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="n">callback</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
+</code></pre></div></div>
+<p>где два параметра:</p>
+<ol>
+  <li><code class="highlighter-rouge">filesPath</code> - путь к каталогу, содержимое которого мы хотим загрузить.</li>
+  <li><code class="highlighter-rouge">callback</code> -  функция как параметр, коллбэк в который мы будем передавать путь к каждому конкретному файлу.</li>
+</ol>
+
+<h2 id="собираем-все-вместе">Собираем все вместе</h2>
+
+<p>Все готово, теперь соберем все вместе и правильно расставим вызовы функций и данные. В итоге мы получим целый скрипт вот такого вида:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">urlopen</span>
+<span class="kn">from</span> <span class="nn">urllib.error</span> <span class="kn">import</span> <span class="n">HTTPError</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+
+<span class="c1"># global variables
+</span><span class="n">uploadUrl</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">authTokenUpload</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">authToken</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">apiUrl</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">bucketId</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="c1"># add Callable annotation
+</span>
+
+<span class="k">def</span> <span class="nf">init_argparse</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s">'''Makes copy of your files to given B2 folder.
+            You need to have "keyID" and "App Key" to authorize in B2 services.
+            KeyId and App Key can be found in B2 Cloud Storage client dashboard
+            '''</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s">"-v"</span><span class="p">,</span> <span class="s">"--version"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">"version"</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="n">f</span><span class="s">"{parser.prog} version 1.0.0"</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s">'directory'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">"Path to directory you want to upload to B2 cloud"</span><span class="p">)</span>
+    <span class="n">requiredNamed</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s">'required named arguments'</span><span class="p">)</span>
+    <span class="n">requiredNamed</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s">'-k'</span><span class="p">,</span> <span class="s">'--key-id'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'B2 "keyID" value (is given to you when you create B2 bucket and access "App key" for it)'</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span>
+    <span class="p">)</span>
+    <span class="n">requiredNamed</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s">'-a'</span><span class="p">,</span> <span class="s">'--app-key'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'B2 "Application Key" value (is given to you when you create B2 bucket and access "App key" for it)'</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span>
+
+
+<span class="k">def</span> <span class="nf">b2_authorize</span><span class="p">(</span><span class="n">applicationKeyId</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">applicationKeyValue</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">id_and_key</span> <span class="o">=</span> <span class="n">f</span><span class="s">'{applicationKeyId}:{applicationKeyValue}'</span>
+    <span class="n">id_and_key_base64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span>
+        <span class="n">id_and_key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="n">basic_auth_string</span> <span class="o">=</span> <span class="n">f</span><span class="s">'Basic {id_and_key_base64}'</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Authorization'</span><span class="p">:</span> <span class="n">basic_auth_string</span><span class="p">}</span>
+    <span class="n">b2_auth_url</span> <span class="o">=</span> <span class="s">'https://api.backblazeb2.com/b2api/v2/b2_authorize_account'</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">b2_auth_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+        <span class="n">auth</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">auth</span>
+
+
+<span class="k">def</span> <span class="nf">b2_get_upload_url</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">authToken</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bucketId</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">b2_get_upload_url</span> <span class="o">=</span> <span class="n">f</span><span class="s">'{apiUrl}/b2api/v2/b2_get_upload_url'</span>
+    <span class="n">get_url_body</span> <span class="o">=</span> <span class="p">{</span><span class="s">'bucketId'</span><span class="p">:</span> <span class="n">bucketId</span><span class="p">}</span>
+    <span class="n">get_url_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Authorization'</span><span class="p">:</span> <span class="n">authToken</span><span class="p">}</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">b2_get_upload_url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="n">get_url_body</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">get_url_headers</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+        <span class="n">uploadData</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">uploadData</span>
+
+
+<span class="k">def</span> <span class="nf">b2_upload_file_callback</span><span class="p">(</span><span class="n">filePathName</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">global</span> <span class="n">uploadUrl</span><span class="p">,</span> <span class="n">authTokenUpload</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'[ Upload in progress ]: {filePathName}'</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">'...'</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">allowed_codes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">503</span><span class="p">]</span>
+    <span class="n">content_type</span> <span class="o">=</span> <span class="s">'b2/x-auto'</span>
+    <span class="n">file_path_name_encoded</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">filePathName</span><span class="p">)</span>
+
+    <span class="c1"># we trim backslash in order to create right directories structure on B2 Cloud
+</span>    <span class="k">if</span> <span class="n">file_path_name_encoded</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'/'</span><span class="p">:</span>
+        <span class="n">file_path_name_encoded</span> <span class="o">=</span> <span class="n">file_path_name_encoded</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filePathName</span><span class="p">,</span> <span class="s">'br'</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+        <span class="n">file_data</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">file_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">file_data</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'Authorization'</span><span class="p">:</span> <span class="n">authTokenUpload</span><span class="p">,</span>
+        <span class="s">'X-Bz-File-Name'</span><span class="p">:</span> <span class="n">file_path_name_encoded</span><span class="p">,</span>
+        <span class="s">'Content-Type'</span><span class="p">:</span> <span class="n">content_type</span><span class="p">,</span>
+        <span class="s">'X-Bz-Content-Sha1'</span><span class="p">:</span> <span class="n">file_hash</span>
+    <span class="p">}</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">uploadUrl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">file_data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'&lt;- [DONE] '</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'&lt;- [FAILED] '</span><span class="p">)</span>
+        <span class="c1"># B2 Cloud sends 500,503 errors when need to re-establish upload connection (upload url and authenticationToken could be changed)
+</span>        <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">code</span> <span class="ow">in</span> <span class="n">allowed_codes</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'[ 503 error, reestablishing connection... ]'</span><span class="p">)</span>
+            <span class="n">uploadSettings</span> <span class="o">=</span> <span class="n">b2_get_upload_url</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">,</span> <span class="n">authToken</span><span class="p">,</span> <span class="n">bucketId</span><span class="p">)</span>
+            <span class="n">uploadUrl</span> <span class="o">=</span> <span class="n">uploadSettings</span><span class="p">[</span><span class="s">'uploadUrl'</span><span class="p">]</span>
+            <span class="n">authTokenUpload</span> <span class="o">=</span> <span class="n">uploadSettings</span><span class="p">[</span><span class="s">'authorizationToken'</span><span class="p">]</span>
+            <span class="n">b2_upload_file_callback</span><span class="p">(</span><span class="n">filePathName</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">applyForFile</span><span class="p">(</span><span class="n">filesPath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="bp">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.DS_Store'</span><span class="p">,</span> <span class="s">'.Trashes'</span><span class="p">,</span> <span class="s">'.fseventsd'</span><span class="p">,</span>
+                <span class="s">'.Spotlight-V100'</span><span class="p">,</span> <span class="s">'desktop.ini'</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">directories</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">filesPath</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">:</span>
+                <span class="n">full_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="n">callback</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">global</span> <span class="n">authToken</span><span class="p">,</span> <span class="n">uploadUrl</span><span class="p">,</span> <span class="n">authTokenUpload</span><span class="p">,</span> <span class="n">apiUrl</span><span class="p">,</span> <span class="n">bucketId</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">init_argparse</span><span class="p">()</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s">"directory"</span><span class="p">]</span>
+    <span class="n">keyId</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s">"key_id"</span><span class="p">]</span>
+    <span class="n">keyValue</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s">"app_key"</span><span class="p">]</span>
+
+    <span class="n">auth</span> <span class="o">=</span> <span class="n">b2_authorize</span><span class="p">(</span><span class="n">keyId</span><span class="p">,</span> <span class="n">keyValue</span><span class="p">)</span>
+
+    <span class="n">apiUrl</span> <span class="o">=</span> <span class="n">auth</span><span class="p">[</span><span class="s">'apiUrl'</span><span class="p">]</span>
+    <span class="n">authToken</span> <span class="o">=</span> <span class="n">auth</span><span class="p">[</span><span class="s">'authorizationToken'</span><span class="p">]</span>
+    <span class="n">bucketId</span> <span class="o">=</span> <span class="n">auth</span><span class="p">[</span><span class="s">'allowed'</span><span class="p">][</span><span class="s">'bucketId'</span><span class="p">]</span>
+    <span class="n">uploadSettings</span> <span class="o">=</span> <span class="n">b2_get_upload_url</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">,</span> <span class="n">authToken</span><span class="p">,</span> <span class="n">bucketId</span><span class="p">)</span>
+
+    <span class="n">uploadUrl</span> <span class="o">=</span> <span class="n">uploadSettings</span><span class="p">[</span><span class="s">'uploadUrl'</span><span class="p">]</span>
+    <span class="n">authTokenUpload</span> <span class="o">=</span> <span class="n">uploadSettings</span><span class="p">[</span><span class="s">'authorizationToken'</span><span class="p">]</span>
+    <span class="n">applyForFile</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">b2_upload_file_callback</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">'[ All files were successfully uploaded ]!'</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</code></pre></div></div>
+
+<h2 id="выводы">Выводы</h2>
+
+<p>Итого мы получили скрипт для бэкапа данных в облако вида:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 b2_backup.py <span class="nt">-k</span> &lt;KEY_ID&gt; <span class="nt">-a</span> &lt;APP_KEY&gt; &lt;PATH_TO_FILES&gt;
+</code></pre></div></div>
+<p>Разобрались в особенностях работы с нативным API сервиса B2 Cloud Storage и по пути научились “шагать” по файловой системе и отправлять файлами по http\https запросам.</p>
+
+<p>Полная актуальная версия моего скрипта находится на моем <a href="https://github.com/handleman/b2_backup">github</a></p>
+
+
+    </section>
+    <hr />
+    <section class="post-info text-muted">
+        <small class="item"><img alt="календарь" caption="Дата публикации" src="/assets/event-24px.svg" class="icon" /> : <strong>26 Sep 2020</strong></small>
+        <small class="item"><img alt="глаз" caption="Количество просмотров страницы" src="/assets/visibility-24px.svg" class="icon" /> : <span id="views-number">...</span></small>
+        <small class="item">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" class="like-button" id="like-button"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+             : <span id="likes-number">...</span>
+            </small>
+    </section>
+</article>
+
+<div class="post-comments" id="comments" aria-label="User comments">
+    <div class="  simple-comments ">
+       <script async src="https://comments.app/js/widget.js?3" data-comments-app-website="EdRP63gc" data-limit="5"></script>
+        <noscript>Включите Javascript, чтобы увидеть комментарии.</noscript>
+    </div>
+</div>
+
+
+        </main>
+        <footer class="footer">
+            <nav>
+                <ul class="nav" role="menu">
+                    <a href="/"  title="На главную" role="menuitem">На главную</a>
+                
+
+<li>
+    
+        <a href="/about/" role="menuitem" class=" ">
+            Контакты
+        </a>
+    
+</li>
+
+                </ul>
+            </nav>
+            <button class="scroll-top" type="button" onclick="window.scrollTop();"> <span class="icon"></span></button>
+        </footer>
+
+    </div>
+</div>
+
+<script src="/assets/js/page.js"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5304a714568001ec"></script>
+</body>
+</html>

@@ -9,9 +9,9 @@
     <meta charset="utf-8" />
     <title>Перевод: Понимание Virtual DOM</title>
     <link type="application/atom+xml" rel="alternate" href="https://handleman.github.io/feed.xml" title="Переводы, комиксы, разработка" />
-    <!-- Begin Jekyll SEO tag v2.5.0 -->
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Перевод: Понимание Virtual DOM | Переводы, комиксы, разработка</title>
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="Перевод: Понимание Virtual DOM" />
 <meta property="og:locale" content="ru_RU" />
 <meta name="description" content="Еще один подобный термин, который вы могли встретить - «Virtual DOM». Хотя термин существует уже достаточно давно, он стал более популярен благодаря использованию в среде React. В этой статье я расскажу чем собственно является Virtual DOM, чем он отличается от оригинального DOM и как он используется." />
@@ -22,8 +22,11 @@
 <meta property="og:image" content="https://handleman.github.io/assets/images/articles/virtual_dom.jpg" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-03-22T10:35:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://handleman.github.io/assets/images/articles/virtual_dom.jpg" />
+<meta property="twitter:title" content="Перевод: Понимание Virtual DOM" />
 <script type="application/ld+json">
-{"headline":"Перевод: Понимание Virtual DOM","dateModified":"2019-03-22T10:35:00+03:00","datePublished":"2019-03-22T10:35:00+03:00","url":"https://handleman.github.io/translation/2019/03/22/virtual-dom.html","image":"https://handleman.github.io/assets/images/articles/virtual_dom.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://handleman.github.io/translation/2019/03/22/virtual-dom.html"},"description":"Еще один подобный термин, который вы могли встретить - «Virtual DOM». Хотя термин существует уже достаточно давно, он стал более популярен благодаря использованию в среде React. В этой статье я расскажу чем собственно является Virtual DOM, чем он отличается от оригинального DOM и как он используется.","@type":"BlogPosting","@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","image":"https://handleman.github.io/assets/images/articles/virtual_dom.jpg","headline":"Перевод: Понимание Virtual DOM","dateModified":"2019-03-22T10:35:00+03:00","datePublished":"2019-03-22T10:35:00+03:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://handleman.github.io/translation/2019/03/22/virtual-dom.html"},"url":"https://handleman.github.io/translation/2019/03/22/virtual-dom.html","description":"Еще один подобный термин, который вы могли встретить - «Virtual DOM». Хотя термин существует уже достаточно давно, он стал более популярен благодаря использованию в среде React. В этой статье я расскажу чем собственно является Virtual DOM, чем он отличается от оригинального DOM и как он используется.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="description" content="Мой личный блог, связанный с веб-разработкой. Где я публикую переводы понравившихся мне тематических статей, делюсь впечатлениями о прочитанных мною комиксах, и делюсь своим опытом.">
@@ -114,13 +117,13 @@
 
 <p>Предположим, что мы хотим поменять контент первого элемента на <strong>«List item one»</strong> и, так же, добавить второй элемент. Чтобы сделать это,  нам нужно использовать API от DOM - чтобы найти элементы которые нам нужно апдейтить, создать новые элементы, добавить атрибуты и нужный контент и, на конец, обновить текущее DOM дерево.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">listItemOne</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"list__item"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-<span class="nx">listItemOne</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">"List item one"</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">listItemOne</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="dl">"</span><span class="s2">list__item</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nx">listItemOne</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">List item one</span><span class="dl">"</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"list"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-<span class="kd">const</span> <span class="nx">listItemTwo</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"li"</span><span class="p">);</span>
-<span class="nx">listItemTwo</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">"list__item"</span><span class="p">);</span>
-<span class="nx">listItemTwo</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">"List item two"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="dl">"</span><span class="s2">list</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">listItemTwo</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">listItemTwo</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="dl">"</span><span class="s2">list__item</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">listItemTwo</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">List item two</span><span class="dl">"</span><span class="p">;</span>
 <span class="nx">list</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">listItemTwo</span><span class="p">);</span>
 
 </code></pre></div></div>
@@ -133,7 +136,7 @@
 
 <p>Более того,  сама структура API такая, сто обычно проще выполнить более тяжелые операции над большим куском разметки, нежели искать и обновлять конкретный элемент каждый раз.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"list"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="dl">"</span><span class="s2">list</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
 <span class="nx">list</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">`
 &lt;li class="list__item"&gt;List item one&lt;/li&gt;
 &lt;li class="list__item"&gt;List item two&lt;/li&gt;
@@ -176,20 +179,20 @@
 <p>Это же дерево может быть представлено в виде javascript объекта:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">vdom</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">tagName</span><span class="p">:</span> <span class="s2">"html"</span><span class="p">,</span>
+    <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">html</span><span class="dl">"</span><span class="p">,</span>
     <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span> <span class="na">tagName</span><span class="p">:</span> <span class="s2">"head"</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">head</span><span class="dl">"</span> <span class="p">},</span>
         <span class="p">{</span>
-            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"body"</span><span class="p">,</span>
+            <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">,</span>
             <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
                 <span class="p">{</span>
-                    <span class="na">tagName</span><span class="p">:</span> <span class="s2">"ul"</span><span class="p">,</span>
-                    <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
+                    <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ul</span><span class="dl">"</span><span class="p">,</span>
+                    <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list</span><span class="dl">"</span> <span class="p">},</span>
                     <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
                         <span class="p">{</span>
-                            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"li"</span><span class="p">,</span>
-                            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span>
-                            <span class="na">textContent</span><span class="p">:</span> <span class="s2">"List item"</span>
+                            <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">,</span>
+                            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list__item</span><span class="dl">"</span> <span class="p">},</span>
+                            <span class="na">textContent</span><span class="p">:</span> <span class="dl">"</span><span class="s2">List item</span><span class="dl">"</span>
                         <span class="p">}</span> <span class="c1">// end li</span>
                     <span class="p">]</span>
                 <span class="p">}</span> <span class="c1">// end ul</span>
@@ -205,13 +208,13 @@
 <p>Так же, вместо того чтобы работать с объектом целиком, чаще принято работать с малыми секциями виртуального DOM. Например мы можем создать виртуальный элемент списка, который потом «спроецируется» на реальный неупорядоченный список находящийся внутри DOM страницы.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">tagName</span><span class="p">:</span> <span class="s2">"ul"</span><span class="p">,</span>
-    <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
+    <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ul</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list</span><span class="dl">"</span> <span class="p">},</span>
     <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"li"</span><span class="p">,</span>
-            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span>
-            <span class="na">textContent</span><span class="p">:</span> <span class="s2">"List item"</span>
+            <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list__item</span><span class="dl">"</span> <span class="p">},</span>
+            <span class="na">textContent</span><span class="p">:</span> <span class="dl">"</span><span class="s2">List item</span><span class="dl">"</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">};</span>
@@ -226,18 +229,18 @@
 <p>Первое что необходимо, это создать копию виртуального DOM, содержащую изменения которые мы хотим сделать. Пока нам не нужно использовать DOM API, мы можем просто создать новый javascript объект.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">copy</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">tagName</span><span class="p">:</span> <span class="s2">"ul"</span><span class="p">,</span>
-    <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
+    <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ul</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list</span><span class="dl">"</span> <span class="p">},</span>
     <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"li"</span><span class="p">,</span>
-            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span>
-            <span class="na">textContent</span><span class="p">:</span> <span class="s2">"List item one"</span>
+            <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list__item</span><span class="dl">"</span> <span class="p">},</span>
+            <span class="na">textContent</span><span class="p">:</span> <span class="dl">"</span><span class="s2">List item one</span><span class="dl">"</span>
         <span class="p">},</span>
         <span class="p">{</span>
-            <span class="na">tagName</span><span class="p">:</span> <span class="s2">"li"</span><span class="p">,</span>
-            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span>
-            <span class="na">textContent</span><span class="p">:</span> <span class="s2">"List item two"</span>
+            <span class="na">tagName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list__item</span><span class="dl">"</span> <span class="p">},</span>
+            <span class="na">textContent</span><span class="p">:</span> <span class="dl">"</span><span class="s2">List item two</span><span class="dl">"</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">};</span>
@@ -263,7 +266,7 @@
 
 <p>Например, мы можем пройтись циклом через все «дифы» и, в зависимости от указанных данных, добавить новый  элемент или обновить уже имеющийся.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">domElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"list"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">domElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="dl">"</span><span class="s2">list</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
 
 <span class="nx">diffs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">diff</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
 
@@ -288,11 +291,11 @@
 
 <p>Такие фреймворки как React или Vue используют внутри себя концепцию виртуального DOM, для оптимизации скорости работы с подлинным DOM страницы. Для примера, наш компонент списка мог бы быть реализован с React таким способом:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"ul"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
-    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"li"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span> <span class="s2">"List item"</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">ul</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list</span><span class="dl">"</span> <span class="p">},</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list__item</span><span class="dl">"</span> <span class="p">},</span> <span class="dl">"</span><span class="s2">List item</span><span class="dl">"</span><span class="p">)</span>
 <span class="p">);</span>
 
 <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
@@ -300,9 +303,9 @@
 
 <p>Если бы мы захотели обновить наш лист, мы могли бы всего-лишь переписать сам темплейт и, затем, вызвать <code class="highlighter-rouge">ReactDOM.render()</code> снова, передав новый лист.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">newList</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"ul"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list"</span> <span class="p">},</span>
-    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"li"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span> <span class="s2">"List item one"</span><span class="p">),</span>
-    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"li"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="s2">"list__item"</span> <span class="p">},</span> <span class="s2">"List item two"</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">newList</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">ul</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list</span><span class="dl">"</span> <span class="p">},</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list__item</span><span class="dl">"</span> <span class="p">},</span> <span class="dl">"</span><span class="s2">List item one</span><span class="dl">"</span><span class="p">),</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">className</span><span class="p">:</span> <span class="dl">"</span><span class="s2">list__item</span><span class="dl">"</span> <span class="p">},</span> <span class="dl">"</span><span class="s2">List item two</span><span class="dl">"</span><span class="p">);</span>
 <span class="p">);</span>
 
 <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">newList</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">),</span> <span class="mi">5000</span><span class="p">);</span>
